@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-release
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: vault
+  # annotations:
+  #   notifications.argoproj.io/subscribe.slack: cloudops-vn-alerts
+spec:
+  project: 3rd-services
+  destination:
+    name: "in-cluster"
+    namespace: kube-system
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: disabled
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+  sources:
+    - repoURL: https://raw.githubusercontent.com/UQThesisENGG7817/helm-charts/gh-pages
+      chart: vault
+      # targetRevision: 0.1.0 - will use Kustomization -op patch
+      helm:
+        releaseName: vault
+        valueFiles:
+          # - $values/3rd-services/vault/values.yaml - will use Kustomization -op patch
+    - repoURL: https://github.com/UQThesisENGG7817/service-gitops
+      targetRevision: main
+      ref: values

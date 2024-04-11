@@ -1,0 +1,5 @@
+nameOverride: metrics-server
+
+nodeSelector:
+  beta.kubernetes.io/arch: arm64
+  nodegroup-role: critical-addons
