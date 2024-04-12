@@ -10,7 +10,7 @@ resources:
 # patchesStrategicMerge: # []
 #   - patch-release.yaml
 
-patches:
+# patches:
 #   - target:
 #       kind: Application
 #       name: main-services-v2
@@ -18,13 +18,13 @@ patches:
 #       - op: replace
 #         path: /spec/source/path
 #         value: main-services/00_envs/prod
-  - target:
-      kind: Application
-      name: 3rd-services
-    patch: |-
-      - op: replace
-        path: /spec/source/path
-        value: 3rd-services/00_envs
+  # - target:
+  #     kind: Application
+  #     name: 3rd-services
+  #   patch: |-
+  #     - op: replace
+  #       path: /spec/source/path
+  #       value: 3rd-services/00_envs
 
   # - target:
   #     kind: Application
