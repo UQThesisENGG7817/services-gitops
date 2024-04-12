@@ -22,7 +22,7 @@ patches:
     patch: |-
       - op: add
         path: /spec/sources/0/targetRevision
-        value: "0.1.0"
+        value: "0.28.0"
   # - target:
   #     kind: Application
   #     name: vault-release
