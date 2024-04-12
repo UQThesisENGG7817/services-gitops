@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - main-services.yaml
+  # - main-services.yaml
   - 3rd-services.yaml
 
 
@@ -20,7 +20,7 @@ patches:
 #         value: main-services/00_envs/prod
   - target:
       kind: Application
-      name: 3rd-services-v2
+      name: 3rd-services
     patch: |-
       - op: replace
         path: /spec/source/path
