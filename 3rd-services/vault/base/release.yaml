@@ -37,7 +37,7 @@ spec:
       # targetRevision: 0.1.0 - will use Kustomization -op patch
       helm:
         releaseName: vault
-        valueFiles:
+        valueFiles: []
           # - $values/3rd-services/vault/values.yaml - will use Kustomization -op patch
     - repoURL: https://github.com/UQThesisENGG7817/service-gitops
       targetRevision: main
