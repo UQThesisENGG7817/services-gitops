@@ -13,7 +13,7 @@ spec:
   project: 3rd-services
   destination:
     name: "in-cluster"
-    namespace: kube-system
+    namespace: vault
   syncPolicy:
     managedNamespaceMetadata:
       labels:
