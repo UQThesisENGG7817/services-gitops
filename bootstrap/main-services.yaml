@@ -11,7 +11,7 @@ spec:
   project: bootstrap
   source:
     path: ""
-    repoURL: https://github.com/UQThesisENGG7817/service-gitops
+    repoURL: https://github.com/UQThesisENGG7817/services-gitops
     targetRevision: HEAD
   syncPolicy:
     automated:

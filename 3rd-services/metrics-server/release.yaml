@@ -39,6 +39,6 @@ spec:
         releaseName: metrics-server
         valueFiles:
           - $values/3rd-services/metrics-server/values.yaml
-    - repoURL: https://github.com/UQThesisENGG7817/service-gitops
+    - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values
