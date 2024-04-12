@@ -71,7 +71,7 @@ server:
 
   # Run Vault in "HA" mode.
   ha:
-    enabled: true
+    enabled: false
     replicas: 1
     raft:
       enabled: true
