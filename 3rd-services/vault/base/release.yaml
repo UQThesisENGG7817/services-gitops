@@ -40,5 +40,5 @@ spec:
         valueFiles: []
           # - $values/3rd-services/vault/values.yaml - will use Kustomization -op patch
     - repoURL: https://github.com/UQThesisENGG7817/service-gitops
-      targetRevision: main
+      targetRevision: HEAD
       ref: values
