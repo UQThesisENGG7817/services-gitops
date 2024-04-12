@@ -6,7 +6,8 @@ resources:
   ### No base - overlays
   - ../argo-rollouts
   - ../metrics-server
-  - ../vault
+  ### base - overlays
+  - ../vault/overlays/production
 
 transformers:
   - commonLabels.yaml
