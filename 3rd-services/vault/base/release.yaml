@@ -33,7 +33,7 @@ spec:
         maxDuration: 3m0s
   sources:
     # - repoURL: https://raw.githubusercontent.com/UQThesisENGG7817/helm-charts/gh-pages
-    - repoURL: https://raw.githubusercontent.com/UQThesisENGG7817/helm-charts/gh-pages
+    - repoURL: https://helm.releases.hashicorp.com
       chart: vault
       # targetRevision: 0.1.0 - will use Kustomization -op patch
       helm:
