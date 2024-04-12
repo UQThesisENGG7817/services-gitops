@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argo
+  labels:
+    app.kubernetes.io/part-of: argocd
+data:
+  policy.csv: |
+    p, role:org-admin, *, *, *, allow
+    g, UQThesisENGG7817:php1301, role:org-admin
+
+    p, role:org-dev, applications, *, */*, allow
+    p, role:org-dev, applications, *, 3rd-services/*, deny
+    p, role:org-dev, applications, *, bootstrap/*, deny
+
+  policy.default: role:''
+  scopes: '[groups, email]'
