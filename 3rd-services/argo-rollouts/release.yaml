@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-rollouts-release
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: argo-rollouts
+  annotations:
+    # notifications.argoproj.io: email
+spec:
+  project: 3rd-services
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: argo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-rollouts
+      targetRevision: 2.21.1
+      helm:
+        releaseName: argo-rollouts
+        valueFiles:
+          - $values/3rd-services/argo-rollouts/values.yaml
+    - repoURL: https://github.com/UQThesisENGG7817/services-gitops
+      targetRevision: main
+      ref: values
