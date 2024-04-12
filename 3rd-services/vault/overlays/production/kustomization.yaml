@@ -15,7 +15,7 @@ patches:
     patch: |-
       - op: add
         path: /spec/sources/0/helm/valueFiles/-
-        value: $values/3rd-services/vault/overlays/prod/values.yaml
+        value: $values/3rd-services/vault/overlays/production/values.yaml
   - target:
       kind: Application
       name: vault-release
