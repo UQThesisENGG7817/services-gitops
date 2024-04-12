@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - main-services.yaml
+  - 3rd-services.yaml
+
+
+## If we have any patches
+# patchesStrategicMerge: # []
+#   - patch-release.yaml
+
+patches:
+#   - target:
+#       kind: Application
+#       name: main-services-v2
+#     patch: |-
+#       - op: replace
+#         path: /spec/source/path
+#         value: main-services/00_envs/prod
+  - target:
+      kind: Application
+      name: 3rd-services-v2
+    patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: 3rd-services/00_envs
+
+  # - target:
+  #     kind: Application
+  #   patch: |-
+  #     - op: add
+  #       path: /spec/syncPolicy
+  #       value: {}
