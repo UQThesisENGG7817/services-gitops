@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+ name: cluster-issuer
+spec:
+ acme:
+   # The ACME server URL
+   server: https://acme-v02.api.letsencrypt.org/directory
+   # Email address used for ACME registration
+   email: phucpham1301@gmail.com
+   # Name of a secret used to store the ACME account private key
+   privateKeySecretRef:
+    name:  cluster-issuer-key
+   # Enable the DNS-01 challenge provider https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
+   solvers:
+   - dns01:
+       cloudflare:
+         email: phucpham1301@gmail.com
+         apiTokenSecretRef:
+           name: cloudflare-api-key-secret
+           key: api-key
