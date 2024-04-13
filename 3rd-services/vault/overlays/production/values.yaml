@@ -17,7 +17,6 @@ injector:
       limits:
         memory: 128Mi
         cpu: 128m
-
 server:
   # Use the Enterprise Image
   nodeSelector:
@@ -66,7 +65,7 @@ server:
   # This configures the Vault Statefulset to create a PVC for audit logs.
   # See https://www.vaultproject.io/docs/audit/index.html to know more
   auditStorage:
-    enabled: true
+    enabled: false
 
   standalone:
     enabled: true
