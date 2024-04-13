@@ -94,11 +94,19 @@ server:
   # we need to define custom readiness/liveness Probe settings
   readinessProbe:
     enabled: true
-    path: "/v1/sys/health"
+    exec:
+      command:
+      - /bin/bash
+      - -ec
+      - vault status
   livenessProbe:
     enabled: true
-    path: "/v1/sys/health"
-    initialDelaySeconds: 60
+    exec:
+      command:
+      - /bin/bash
+      - -c
+      - vault status
+    initialDelaySeconds: 5
 
   # extraEnvironmentVars is a list of extra environment variables to set with the stateful set. These could be
   # used to include variables required for auto-unseal.
