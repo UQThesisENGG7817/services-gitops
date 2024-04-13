@@ -31,11 +31,12 @@ server:
   # Vault Reference Architecture for a Small Cluster
   resources:
     requests:
-      memory: 50m
-      cpu: 128Mi
+      memory: 256Mi
+      cpu: 200m
     limits:
-      memory: 50m
-      cpu: 128Mi
+      memory: 512Mi
+      cpu: 400m
+  affinity: ""
 
   # For HA configuration and because we need to manually init the vault,
   # we need to define custom readiness/liveness Probe settings
