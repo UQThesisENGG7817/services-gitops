@@ -12,11 +12,11 @@ injector:
 
   resources:
       requests:
-        memory: 256Mi
-        cpu: 250m
+        memory: 128Mi
+        cpu: 128m
       limits:
-        memory: 256Mi
-        cpu: 250m
+        memory: 128Mi
+        cpu: 128m
 
 server:
   # Use the Enterprise Image
