@@ -50,17 +50,17 @@ server:
     labels: {}
     # -- Defines which ingress controller will implement the resource
     ingressClassName: nginx
-
+    activeService: false
     # -- List of ingress hosts
     ## Argo Ingress.
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
     hosts:
-      - vault.pinnamon.com
+      - host: vault.pinnamon.com
+        paths:
+          - /
 
     # -- List of ingress paths
-    paths:
-      - /
     # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
     # -- Additional ingress paths
