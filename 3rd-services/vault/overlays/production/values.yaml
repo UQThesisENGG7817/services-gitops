@@ -104,9 +104,9 @@ server:
     exec:
       command:
       - /bin/bash
-      - -c
+      - -ec
       - vault status
-    initialDelaySeconds: 5
+    initialDelaySeconds: 30
 
   # extraEnvironmentVars is a list of extra environment variables to set with the stateful set. These could be
   # used to include variables required for auto-unseal.
