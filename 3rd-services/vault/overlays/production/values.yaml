@@ -18,6 +18,14 @@ injector:
         memory: 128Mi
         cpu: 128m
 server:
+  # postStart:
+  #   - sh
+  #   - -c
+  #   - |
+  #   sleep 10
+  #   vault operator init >> /tmp/init.txt
+  #   cat /tmp/init.txt | grep "Key " | awk '{print $NF}' | xargs -I{} vault operator unseal {}
+  #   rm /tmp/init.txt
   # Use the Enterprise Image
   nodeSelector:
     magnum.openstack.org/role: worker
@@ -65,7 +73,10 @@ server:
     pathType: Prefix
     # -- Additional ingress paths
     extraPaths:
-      []
+      - backend:
+          serviceName: vault-ui
+          servicePort: 8200
+        path: /vault
       # - path: /*
       #   backend:
       #     serviceName: ssl-redirect
@@ -188,9 +199,9 @@ server:
 # Vault UI
 ui:
   enabled: true
-  serviceType: "LoadBalancer"
-  serviceNodePort: null
-  externalPort: 8200
+  serviceType: "ClusterIP"
+  # serviceNodePort: null
+  # externalPort: 8200
 
   # For Added Security, edit the below
   #loadBalancerSourceRanges:
