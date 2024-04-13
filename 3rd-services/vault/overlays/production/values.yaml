@@ -1,6 +1,6 @@
 global:
   enabled: true
-  tlsDisable: false
+  tlsDisable: true
 
 injector:
   enabled: true
@@ -115,9 +115,9 @@ server:
 
   # extraVolumes is a list of extra volumes to mount. These will be exposed
   # to Vault in the path `/vault/userconfig/<name>/`.
-  extraVolumes:
-    - type: secret
-      name: vault-ca-tls
+  # extraVolumes:
+  #   - type: secret
+  #     name: vault-ca-tls
     # - type: secret
     #   name: vault-ca-tls
     # - type: secret
