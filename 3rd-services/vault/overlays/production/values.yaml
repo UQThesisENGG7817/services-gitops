@@ -83,7 +83,7 @@ server:
     tls:
     - hosts:
       - vault.pinnamon.com
-      secretName: cluster-ca-tsl
+      secretName: vault-ca-tls
       # - secretName: your-certificate-name
       #   hosts:
       #     - argocd.example.com
@@ -94,10 +94,10 @@ server:
   # we need to define custom readiness/liveness Probe settings
   readinessProbe:
     enabled: true
-    path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
+    path: "/v1/sys/health"
   livenessProbe:
     enabled: true
-    path: "/v1/sys/health?standbyok=true"
+    path: "/v1/sys/health"
     initialDelaySeconds: 60
 
   # extraEnvironmentVars is a list of extra environment variables to set with the stateful set. These could be
