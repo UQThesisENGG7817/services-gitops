@@ -20,6 +20,8 @@ injector:
 
 server:
   # Use the Enterprise Image
+  nodeSelector:
+    magnum.openstack.org/role: worker
   image:
     repository: "hashicorp/vault"
     tag: "1.16.1"
