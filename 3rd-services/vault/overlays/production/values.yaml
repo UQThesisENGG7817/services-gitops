@@ -107,11 +107,11 @@ server:
 
   # extraVolumes is a list of extra volumes to mount. These will be exposed
   # to Vault in the path `/vault/userconfig/<name>/`.
-  extraVolumes:
-    - type: secret
-      name: tls-server
-    - type: secret
-      name: tls-ca
+  # extraVolumes:
+  #   - type: secret
+  #     name: tls-server
+  #   - type: secret
+  #     name: tls-ca
     # - type: secret
     #   name: kms-creds
 
