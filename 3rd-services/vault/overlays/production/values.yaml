@@ -67,17 +67,19 @@ server:
       - host: vault.pinnamon.com
         paths:
           - /
-
+        backend:
+          serviceName: vault-ui
+          servicePort: 8200
     # -- List of ingress paths
     # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
     # -- Additional ingress paths
-    extraPaths:
-      - backend:
-          serviceName: vault-ui
-          servicePort: 8200
-        path: /vault
-        pathType: Prefix
+    # extraPaths:
+    #   - backend:
+    #       serviceName: vault-ui
+    #       servicePort: 8200
+    #     path: /vault
+    #     pathType: Prefix
       # - path: /*
       #   backend:
       #     serviceName: ssl-redirect
