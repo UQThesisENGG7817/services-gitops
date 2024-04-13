@@ -53,7 +53,7 @@ server:
     # If you encounter a redirect loop or are getting a 307 response code
     # then you need to force the nginx ingress to connect to the backend using HTTPS.
        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     # -- Additional ingress labels
     labels: {}
     # -- Defines which ingress controller will implement the resource
@@ -67,9 +67,9 @@ server:
       - host: vault.pinnamon.com
         paths:
           - /
-        backend:
-          serviceName: vault-ui
-          servicePort: 8200
+        # backend:
+        #   serviceName: vault-ui
+        #   servicePort: 8200
     # -- List of ingress paths
     # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
