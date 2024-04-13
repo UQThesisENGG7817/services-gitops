@@ -94,18 +94,10 @@ server:
   # we need to define custom readiness/liveness Probe settings
   readinessProbe:
     enabled: true
-    exec:
-      command:
-      - /bin/bash
-      - -c
-      - vault status -tls-skip-verify
+    path: "/v1/sys/health"
   livenessProbe:
     enabled: true
-    exec:
-      command:
-      - /bin/bash
-      - -c
-      - vault status -tls-skip-verify
+    path: "/v1/sys/health"
     initialDelaySeconds: 60
 
   # extraEnvironmentVars is a list of extra environment variables to set with the stateful set. These could be
