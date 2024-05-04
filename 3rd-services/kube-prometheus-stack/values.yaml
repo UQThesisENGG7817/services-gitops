@@ -141,7 +141,7 @@ prometheus:
     tls:
     - hosts:
       - prometheus.pinnamon.com
-      secretName: observability-ca-tls
+      secretName: kube-prometheus-stack-admission-certificate
     paths:
       - /
   prometheusSpec:
