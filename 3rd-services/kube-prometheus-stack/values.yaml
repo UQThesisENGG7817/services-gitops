@@ -111,6 +111,15 @@ kube-state-metrics:
 
 prometheusOperator:
   admissionWebhooks:
+    volumes:
+      - name: tls-certificates
+        secret:
+          items:
+          - key: tls.crt
+            path: tls.crt
+          - key: tls.key
+            path: tls.key
+          secretName: kube-prometheus-stack-admission
     patch:
       nodeSelector:
         magnum.openstack.org/role: worker
