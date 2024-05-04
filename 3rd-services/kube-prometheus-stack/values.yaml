@@ -76,7 +76,7 @@ defaultRules:
 #             requests:
 #               storage: 5Gi
 #     nodeSelector:
-#       nodegroup-role: main
+#       magnum.openstack.org/role: worker
 #     resources:
 #       requests:
 #         memory: 100Mi
@@ -107,15 +107,15 @@ kube-state-metrics:
     limits:
       memory: 500Mi
   nodeSelector:
-    nodegroup-role: main
+    magnum.openstack.org/role: worker
 
 prometheusOperator:
   admissionWebhooks:
     patch:
       nodeSelector:
-        nodegroup-role: main
+        magnum.openstack.org/role: worker
   nodeSelector:
-    nodegroup-role: main
+    magnum.openstack.org/role: worker
 
 prometheus:
   ingress:
