@@ -29,4 +29,4 @@ spec:
   source:
     repoURL: https://github.com/UQThesisENGG7817/services-gitops
     targetRevision: main
-    path: "./rules"
+    path: "3rd-services/kube-prometheus-stack/overlays/rules"
