@@ -3,7 +3,7 @@ nameOverride: "argo-rollouts"
 controller:
   replicas: 1
   nodeSelector:
-    nodegroup-role: main
+    magnum.openstack.org/role: worker
 
   resources:
     limits:
@@ -14,4 +14,4 @@ controller:
 
 dashboard:
   nodeSelector:
-    nodegroup-role: main
+    magnum.openstack.org/role: worker

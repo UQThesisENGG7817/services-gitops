@@ -1,30 +1,7 @@
-# certificate.yml
-# apiVersion: cert-manager.io/v1
-# kind: Certificate
-# metadata:
-#   name: observability-certificate
-#   namespace: observability
-# spec:
-#   duration: 2160h #90d
-#   renewBefore: 360h # 15d
-#   privateKey:
-#     algorithm: RSA
-#     encoding: PKCS1
-#     size: 2048
-#   commonName: "*.pinnamon.com"
-#   dnsNames:
-#     - 'pinnamon.com'
-#     - '*.pinnamon.com'
-#   secretName: observability-ca-tls
-#   issuerRef:
-#     name: cluster-issuer
-#     kind: ClusterIssuer
-#     group: cert-manager.io
----
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: kube-prometheus-stack-admission-certificate
+  name: kube-logging-stack-admission-certificate
   namespace: observability
 spec:
   duration: 2160h #90d
@@ -33,9 +10,9 @@ spec:
     algorithm: RSA
     encoding: PKCS1
     size: 2048
-  commonName: "prometheus.pinnamon.com"
+  commonName: "logging.pinnamon.com"
   dnsNames:
-    - 'prometheus.pinnamon.com'
+    - 'logging.pinnamon.com'
   secretName: kube-prometheus-stack-admission
   issuerRef:
     name: cluster-issuer
