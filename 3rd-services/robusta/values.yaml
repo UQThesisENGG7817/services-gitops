@@ -10,7 +10,7 @@ sinksConfig:
 clusterName: "potter_gha_2"
 # see https://docs.robusta.dev/master/user-guide/configuration.html#global-config and https://docs.robusta.dev/master/configuration/additional-settings.html#global-config
 globalConfig:
-  prometheus_url: "https://prometheus.pinnamon.com"
+  prometheus_url: "https://logging.pinnamon.com"
   grafana_url: "https://grafana.pinnamon.com"
   alertmanager_url: "https://alertmanager.pinnamon.com"
   signing_key: "{{ env.SIGNING_KEY }}"

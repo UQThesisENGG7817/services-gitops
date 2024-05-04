@@ -150,18 +150,18 @@ prometheus:
        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     hosts:
-      - prometheus.pinnamon.com
+      - logging.pinnamon.com
     pathType: Prefix
     tls:
     - hosts:
-      - prometheus.pinnamon.com
+      - logging.pinnamon.com
       secretName: kube-prometheus-stack-admission-certificate
     paths:
       - /
   prometheusSpec:
     externalLabels:
       cluster: "potter_gha_2"
-    externalUrl: "https://prometheus.pinnamon.com"
+    externalUrl: "https://logging.pinnamon.com"
     enableFeatures:
       - expand-external-labels
     nodeSelector:
