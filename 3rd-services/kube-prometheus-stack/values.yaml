@@ -125,10 +125,10 @@ prometheus:
        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     hosts:
-      - host: prometheus.pinnamon.com
-        paths:
-          - /
+      - prometheus.pinnamon.com
     pathType: Prefix
+    paths:
+      - /
   prometheusSpec:
     externalLabels:
       cluster: "potter_gha_2"
