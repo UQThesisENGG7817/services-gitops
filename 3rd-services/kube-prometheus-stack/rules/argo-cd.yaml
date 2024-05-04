@@ -1,0 +1,119 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: kube-prometheus-stack
+    app.kubernetes.io/instance: kube-prometheus-stack
+    app.kubernetes.io/part-of: kube-prometheus-stack
+  name: argo-cd
+  # namespace: observability
+spec:
+  groups:
+    - name: argo-cd
+      rules:
+        - alert: ArgoCdAppOutOfSync
+          expr: |
+            sum(
+              argocd_app_info{
+                job=~".*",
+                sync_status!="Synced"
+              } * on(name, namespace, project) group_left (label_env, label_cluster, label_server_url) argocd_app_labels
+            ) by (job, name, sync_status, project, label_server_url)
+            > 0
+          for: 15m
+          labels:
+            severity: warning
+            alert_group: argo-cd
+          annotations:
+            summary: "An ArgoCD Application is Out Of Sync"
+            description: |-
+              The application `{{ $labels.project }}/{{ $labels.name }}` is out of sync with the sync status `{{ $labels.sync_status }}` for the past 15m
+
+              [View in ArgoCD](https://{{ $labels.label_server_url }}/applications/argo/{{ $labels.name }})
+            dashboard_url: "https://grafana.pinnamon.com/d/argo-cd-application-overview-kask/argocd-application-overview?var-dest_server={{ $labels.dest_server }}&var-project={{ $labels.project }}&var-application={{ $labels.name }}"
+        - alert: ArgoCdAppUnhealthy
+          expr: |
+            sum(
+              argocd_app_info{
+                job=~".*",
+                health_status!~"Healthy|Progressing"
+              } * on(name, namespace, project) group_left (label_env, label_cluster, label_server_url) argocd_app_labels
+            ) by (job, name, health_status, project, label_server_url)
+            > 0
+          for: 15m
+          labels:
+            severity: warning
+            alert_group: argo-cd
+          annotations:
+            summary: "An ArgoCD Application is Unhealthy"
+            description: |-
+              The application `{{ $labels.project }}/{{ $labels.name }}` is unhealthy with the health status `{{ $labels.health_status }}` for the past 15m
+
+              [View in ArgoCD](https://{{ $labels.label_server_url }}/applications/argo/{{ $labels.name }})
+            dashboard_url: "https://grafana.pinnamon.com/d/argo-cd-application-overview-kask/argocd-application-overview?var-dest_server={{ $labels.dest_server }}&var-project={{ $labels.project }}&var-application={{ $labels.name }}"
+        - alert: ArgoCdAppSyncFailed
+          expr: |
+            sum(
+              round(
+                increase(
+                  argocd_app_sync_total{
+                    job=~".*",
+                    phase!="Succeeded"
+                  }[10m]
+                ) * on(name, namespace, project) group_left(label_env, label_cluster, label_server_url) argocd_app_labels
+              )
+            ) by (job, name, phase, project, label_server_url)
+            > 0
+          for: 1m
+          labels:
+            severity: warning
+            alert_group: argo-cd
+          annotations:
+            summary: "An ArgoCD Application has Failed to Sync"
+            description: |-
+              The application `{{ $labels.project }}/{{ $labels.name }}` has failed to sync with the status `{{ $labels.phase }}` the past 10m
+
+              [View in ArgoCD](https://{{ $labels.label_server_url }}/applications/argo/{{ $labels.name }})
+            dashboard_url: "https://grafana.pinnamon.com/d/argo-cd-application-overview-kask/argocd-application-overview?var-dest_server={{ $labels.dest_server }}&var-project={{ $labels.project }}&var-application={{ $labels.name }}"
+        - alert: ArgoCdAppAutoSyncDisabled
+          expr: |
+            sum(
+              argocd_app_info{
+                job=~".*",
+                autosync_enabled!="true",
+                name!~"",
+              } * on(name, namespace, project) group_left (label_env, label_cluster, label_server_url) argocd_app_labels{label_env=~"(qa|staging)"}
+            ) by (job, name, autosync_enabled, project, label_server_url, label_env)
+            > 0
+          for: 2h
+          labels:
+            severity: warning
+            alert_group: argo-cd
+          annotations:
+            summary: "An ArgoCD Application has AutoSync Disabled"
+            description: |-
+              The application `{{ $labels.project }}/{{ $labels.name }}` has `autosync disabled` for the past 2h
+
+              [View in ArgoCD](https://{{ $labels.label_server_url }}/applications/argo/{{ $labels.name }})
+            dashboard_url: "https://grafana.pinnamon.com/d/argo-cd-application-overview-kask/argocd-application-overview?var-dest_server={{ $labels.dest_server }}&var-project={{ $labels.project }}&var-application={{ $labels.name }}"
+        - alert: ArgoCdAppAutoSyncEnabled
+          expr: |
+            sum(
+              argocd_app_info{
+                job=~".*",
+                autosync_enabled="true",
+                name!~"",
+              } * on(name, namespace, project) group_left (label_env, label_cluster, label_server_url) argocd_app_labels{label_env=~"prod"}
+            ) by (job, name, autosync_enabled, project, label_server_url, label_env)
+            > 0
+          for: 2h
+          labels:
+            severity: warning
+            alert_group: argo-cd
+          annotations:
+            summary: "An ArgoCD Application has AutoSync Enabled"
+            description: |-
+              The application `{{ $labels.project }}/{{ $labels.name }}` has `autosync enabled` for the past 2h
+
+              [View in ArgoCD](https://{{ $labels.label_server_url }}/applications/argo/{{ $labels.name }})
+            dashboard_url: "https://grafana.pinnamon.com/d/argo-cd-application-overview-kask/argocd-application-overview?var-dest_server={{ $labels.dest_server }}&var-project={{ $labels.project }}&var-application={{ $labels.name }}"

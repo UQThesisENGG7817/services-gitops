@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-helpers
+  name: kube-prometheus-stack-release
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app: argocd-helpers
+    app: kube-prometheus-stack
 spec:
   project: 3rd-services
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: argo
+    namespace: observability
   syncPolicy:
     automated:
       prune: true
@@ -20,13 +20,21 @@ spec:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
       - PrunePropagationPolicy=foreground
+      - ServerSideApply=true
     retry:
       limit: 2
       backoff:
         duration: 5s
         factor: 2
         maxDuration: 3m0s
-  source:
-    repoURL: https://github.com/UQThesisENGG7817/platform-deployment-v2
-    targetRevision: main
-    path: ""
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: 52.1.0
+      helm:
+        releaseName: kube-prometheus-stack
+        valueFiles:
+          - $values/3rd-services/kube-prometheus-stack/base/values.yaml
+    - repoURL: https://github.com/UQThesisENGG7817/services-gitops
+      targetRevision: main
+      ref: values

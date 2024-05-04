@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-helpers
+  name: kube-prometheus-stack-rules-release
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app: argocd-helpers
+    app: kube-prometheus-stack-rules
 spec:
   project: 3rd-services
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: argo
+    namespace: observability
   syncPolicy:
     automated:
       prune: true
@@ -27,6 +27,6 @@ spec:
         factor: 2
         maxDuration: 3m0s
   source:
-    repoURL: https://github.com/UQThesisENGG7817/platform-deployment-v2
+    repoURL: https://github.com/UQThesisENGG7817/services-gitops
     targetRevision: main
-    path: ""
+    path: "./rules"

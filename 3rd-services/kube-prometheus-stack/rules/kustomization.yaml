@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: observability
+commonAnnotations:
+  argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+resources:
+- argo-cd.yaml
+- awesome-prometheus-alerts.yaml
+- kube-prometheus-stack-alertmanager.yaml
+- kube-prometheus-stack-config-reloaders.yaml
+- kube-prometheus-stack-general.yaml
+- kube-prometheus-stack-k8s.records.yaml
+- kube-prometheus-stack-kube-prometheus-general.records.yaml
+- kube-prometheus-stack-kube-prometheus-node-recording.records.yaml
+- kube-prometheus-stack-kube-state-metrics.yaml
+- kube-prometheus-stack-kubelet.records.yaml
+- kube-prometheus-stack-kubernetes-apps.yaml
+- kube-prometheus-stack-kubernetes-resources.yaml
+- kube-prometheus-stack-kubernetes-storage.yaml
+- kube-prometheus-stack-kubernetes-system-apiserver.yaml
+- kube-prometheus-stack-kubernetes-system-kube-proxy.yaml
+- kube-prometheus-stack-kubernetes-system-kubelet.yaml
+- kube-prometheus-stack-kubernetes-system.yaml
+- kube-prometheus-stack-node-exporter.records.yaml
+- kube-prometheus-stack-node-exporter.yaml
+- kube-prometheus-stack-node-network.yaml
+- kube-prometheus-stack-node.records.yaml
+- kube-prometheus-stack-prometheus-operator.yaml
+- kube-prometheus-stack-prometheus.yaml
