@@ -3,6 +3,9 @@ sinksConfig:
   - robusta_sink:
       name: robusta_ui_sink
       token: "{{ env.ROBUSTA_UI_SINK_API_KEY }}"
+  - discord_sink:
+      name: discord_sink
+      token: "{{ env.DISCORD_SINK }}"
 
 clusterName: "potter_gha_2"
 # see https://docs.robusta.dev/master/user-guide/configuration.html#global-config and https://docs.robusta.dev/master/configuration/additional-settings.html#global-config
@@ -351,3 +354,8 @@ runner:
       secretKeyRef:
         name: robusta-secrets
         key: robusta_sink_api_key
+  - name: DISCORD_SINK
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secrets
+        key: discord_sink
