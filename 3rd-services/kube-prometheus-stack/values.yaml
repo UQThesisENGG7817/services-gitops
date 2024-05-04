@@ -11,7 +11,7 @@ alertmanager:
         - times:
           - start_time: '09:00'
             end_time: '23:00'
-          weekdays: ['monday:sunday']
+          weekdays: ['sunday:monday']
           location: "Australia/Brisbane"
     inhibit_rules:
       - source_matchers:
