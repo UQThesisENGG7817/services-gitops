@@ -61,7 +61,7 @@ alertmanager:
        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     hosts:
-      - prometheus.pinnamon.com
+      - alertmanager.pinnamon.com
     paths:
       - /
     tls:
