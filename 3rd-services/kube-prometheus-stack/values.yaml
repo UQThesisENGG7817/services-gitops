@@ -77,7 +77,7 @@ alertmanager:
     tls:
     - hosts:
       - alertmanager.pinnamon.com
-      secretName: alertmanager-certificate
+      secretName: alertmanager-tls
     pathType: Prefix
   alertmanagerSpec:
     externalUrl: https://alertmanager.pinnamon.com
@@ -155,7 +155,7 @@ prometheus:
     tls:
     - hosts:
       - logging.pinnamon.com
-      secretName: kube-prometheus-stack-admission-certificate
+      secretName: logging-tls
     paths:
       - /
   prometheusSpec:
