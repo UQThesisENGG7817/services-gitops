@@ -127,6 +127,10 @@ prometheus:
     hosts:
       - prometheus.pinnamon.com
     pathType: Prefix
+    tls:
+    - hosts:
+      - prometheus.pinnamon.com
+      secretName: observability-ca-tls
     paths:
       - /
   prometheusSpec:
@@ -136,7 +140,7 @@ prometheus:
     enableFeatures:
       - expand-external-labels
     nodeSelector:
-      nodegroup-role: main
+      magnum.openstack.org/role: worker
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
