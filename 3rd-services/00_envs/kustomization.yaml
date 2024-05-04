@@ -8,6 +8,7 @@ resources:
   - ../metrics-server
   - ../kube-prometheus-stack
   - ../external-secrets
+  - ../robusta
   ### base - overlays
   - ../vault/overlays/production
 
