@@ -34,7 +34,7 @@ spec:
       helm:
         releaseName: kube-prometheus-stack
         valueFiles:
-          - $values/3rd-services/kube-prometheus-stack/base/values.yaml
+          - $values/3rd-services/kube-prometheus-stack/values.yaml
     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values
