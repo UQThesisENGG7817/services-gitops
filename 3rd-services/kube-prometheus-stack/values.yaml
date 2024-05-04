@@ -1,88 +1,92 @@
 defaultRules:
   create: false
 
-# alertmanager:
-#   config:
-#     global:
-#       resolve_timeout: 5m
-#     inhibit_rules:
-#       - source_matchers:
-#           - 'severity = critical'
-#         target_matchers:
-#           - 'severity =~ warning|info'
-#         equal:
-#           - 'namespace'
-#           - 'alertname'
-#           - 'pod'
-#       - source_matchers:
-#           - 'severity = warning'
-#         target_matchers:
-#           - 'severity = info'
-#         equal:
-#           - 'namespace'
-#           - 'alertname'
-#           - 'pod'
-#       # - source_matchers:
-#       #     - 'alertname = QLDOffHours'
-#       #   target_matchers:
-#       #     - severity =~ ".*"
-#       # - source_matchers:
-#       #     - 'alertname = InfoInhibitor'
-#       #   target_matchers:
-#       #     - 'severity = info'
-#       #   equal:
-#       #     - 'namespace'
-#     route:
-#       group_by: ['alertname', 'cluster', 'namespace']
-#       group_wait: 30s
-#       group_interval: 2m
-#       repeat_interval: 1h
-#       receiver: 'null'
-#       routes:
-#       - receiver: 'null'
-#         matchers:
-#           - alertname =~ "InfoInhibitor|Watchdog|QLDOffHours"
-#       - receiver: 'robusta'
-#         matchers:
-#           - severity =~ ".*"
-#         continue: true # 
-#     receivers:
-#     - name: 'null'
-#     - name: 'robusta'
-#       webhook_configs:
-#         - url: 'http://robusta-runner.observability.svc.cluster.local/api/alerts' # 
-#           send_resolved: true # 
-#     templates:
-#     - '/etc/alertmanager/config/*.tmpl'
-#   ingress:
-#     enabled: true
-#     ingressClassName: nginx
-#     annotations:
-#        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-#        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-#     hosts:
-#       - host: alertmanager.pinnamon.com
-#         paths:
-#           - /
-#     pathType: Prefix
-#   alertmanagerSpec:
-#     externalUrl: https://alertmanager.pinnamon.com
-#     storage:
-#       volumeClaimTemplate:
-#         spec:
-#           storageClassName: default
-#           accessModes: ["ReadWriteOnce"]
-#           resources:
-#             requests:
-#               storage: 5Gi
-#     nodeSelector:
-#       magnum.openstack.org/role: worker
-#     resources:
-#       requests:
-#         memory: 100Mi
-#         cpu: 100m
-#       limits:
-#         memory: 500Mi
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    inhibit_rules:
+      - source_matchers:
+          - 'severity = critical'
+        target_matchers:
+          - 'severity =~ warning|info'
+        equal:
+          - 'namespace'
+          - 'alertname'
+          - 'pod'
+      - source_matchers:
+          - 'severity = warning'
+        target_matchers:
+          - 'severity = info'
+        equal:
+          - 'namespace'
+          - 'alertname'
+          - 'pod'
+      # - source_matchers:
+      #     - 'alertname = QLDOffHours'
+      #   target_matchers:
+      #     - severity =~ ".*"
+      # - source_matchers:
+      #     - 'alertname = InfoInhibitor'
+      #   target_matchers:
+      #     - 'severity = info'
+      #   equal:
+      #     - 'namespace'
+    route:
+      group_by: ['alertname', 'cluster', 'namespace']
+      group_wait: 30s
+      group_interval: 2m
+      repeat_interval: 1h
+      receiver: 'null'
+      routes:
+      - receiver: 'null'
+        matchers:
+          - alertname =~ "InfoInhibitor|Watchdog|QLDOffHours"
+      - receiver: 'robusta'
+        matchers:
+          - severity =~ ".*"
+        continue: true # 
+    receivers:
+    - name: 'null'
+    - name: 'robusta'
+      webhook_configs:
+        - url: 'http://robusta-runner.observability.svc.cluster.local/api/alerts' # 
+          send_resolved: true # 
+    templates:
+    - '/etc/alertmanager/config/*.tmpl'
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    hosts:
+      - host: alertmanager.pinnamon.com
+        paths:
+          - /
+    tls:
+    - hosts:
+      - alertmanager.pinnamon.com
+      secretName: kube-prometheus-stack-admission-certificate
+    pathType: Prefix
+  alertmanagerSpec:
+    externalUrl: https://alertmanager.pinnamon.com
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: default
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+    nodeSelector:
+      magnum.openstack.org/role: worker
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 500Mi
 
 grafana:
   enabled: false
