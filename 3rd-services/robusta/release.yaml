@@ -12,20 +12,20 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: observability
-  # syncPolicy:
-  #   automated:
-  #     prune: true
-  #     selfHeal: true
-  #   syncOptions:
-  #     - CreateNamespace=true
-  #     - ApplyOutOfSyncOnly=true
-  #     - PrunePropagationPolicy=foreground
-  #   retry:
-  #     limit: 2
-  #     backoff:
-  #       duration: 5s
-  #       factor: 2
-  #       maxDuration: 3m0s
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
   sources:
     - repoURL: https://robusta-charts.storage.googleapis.com
       chart: robusta
