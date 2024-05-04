@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-secrets-release
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: external-secrets
+spec:
+  project: 3rd-services
+  destination:
+    name: "in-cluster"
+    namespace: external-secrets
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: disabled
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+  sources:
+    - repoURL: https://charts.external-secrets.io
+      chart: external-secrets
+      targetRevision: 0.7.2
+      helm:
+        releaseName: external-secrets
+        valueFiles:
+          - $values/3rd-services/external-secrets/values.yaml
+    - repoURL: https://github.com/UQThesisENGG7817/services-gitops
+      targetRevision: main
+      ref: values

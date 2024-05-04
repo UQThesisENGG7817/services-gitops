@@ -1,0 +1,16 @@
+serviceAccount:
+  create: true
+
+installCRDs: true
+
+nodeSelector:
+  nodeSelector:
+    magnum.openstack.org/role: worker
+
+webhook:
+  nodeSelector:
+    magnum.openstack.org/role: worker
+
+certController:
+  nodeSelector:
+    magnum.openstack.org/role: worker
