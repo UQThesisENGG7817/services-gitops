@@ -4,8 +4,7 @@ serviceAccount:
 installCRDs: true
 
 nodeSelector:
-  nodeSelector:
-    magnum.openstack.org/role: worker
+  magnum.openstack.org/role: worker
 
 webhook:
   nodeSelector:
