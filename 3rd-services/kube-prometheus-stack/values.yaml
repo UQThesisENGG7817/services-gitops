@@ -5,6 +5,14 @@ alertmanager:
   config:
     global:
       resolve_timeout: 5m
+    time_intervals:
+      - name: qld-work-hours
+        time_intervals:
+        - times:
+          - start_time: '09:00'
+            end_time: '23:00'
+          weekdays: ['monday:sunday']
+          location: "Australia/Brisbane"
     inhibit_rules:
       - source_matchers:
           - 'severity = critical'
@@ -45,6 +53,8 @@ alertmanager:
       - receiver: 'robusta'
         matchers:
           - severity =~ ".*"
+        active_time_intervals:
+          - qld-work-hours
         continue: true # 
     receivers:
     - name: 'null'
