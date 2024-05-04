@@ -7,8 +7,6 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   labels:
     app: vault
-  # annotations:
-  #   notifications.argoproj.io/subscribe.slack: cloudops-vn-alerts
 spec:
   project: 3rd-services
   destination:
