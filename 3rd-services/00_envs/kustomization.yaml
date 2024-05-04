@@ -6,6 +6,7 @@ resources:
   ### No base - overlays
   - ../argo-rollouts
   - ../metrics-server
+  - ../kube-prometheus-stack
   ### base - overlays
   - ../vault/overlays/production
 
