@@ -318,7 +318,7 @@ enablePlatformPlaybooks: false
 
 kubewatch:
   nodeSelector:
-    nodegroup-role: main
+    magnum.openstack.org/role: worker
   resources:
     requests:
       cpu: 10m
