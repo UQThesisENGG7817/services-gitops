@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx-release
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: ingress-nginx
+spec:
+  project: 3rd-services
+  destination:
+    name: "in-cluster"
+    namespace: ingress-nginx
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: disabled
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+  sources:
+    - repoURL: https://kubernetes.github.io/ingress-nginx
+      chart: ingress-nginx
+      targetRevision: 4.10.1
+      helm:
+        releaseName: ingress-nginx
+        valueFiles:
+          - $values/3rd-services/nginx/values.yaml
+    - repoURL: https://github.com/UQThesisENGG7817/services-gitops
+      targetRevision: main
+      ref: values

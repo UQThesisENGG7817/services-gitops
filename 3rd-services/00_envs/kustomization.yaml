@@ -9,6 +9,7 @@ resources:
   - ../kube-prometheus-stack
   - ../external-secrets
   - ../robusta
+  - ../nginx
   ### base - overlays
   - ../vault/overlays/production
 
