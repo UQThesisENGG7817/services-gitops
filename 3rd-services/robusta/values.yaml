@@ -13,7 +13,7 @@ globalConfig:
   signing_key: "{{ env.SIGNING_KEY }}"
   account_id: "{{ env.ACCOUNT_ID }}"
 
-disableCloudRouting: true
+# disableCloudRouting: true
 playbooksPersistentVolume: true
 
 priorityBuiltinPlaybooks:
