@@ -43,7 +43,6 @@ server:
       cpu: 200m
     limits:
       memory: 512Mi
-      cpu: 400m
   affinity: ""
   ingress:
     # -- Enable an ingress resource for the Argo CD server
