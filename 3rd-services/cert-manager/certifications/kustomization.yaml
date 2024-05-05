@@ -5,6 +5,6 @@ commonAnnotations:
 resources:
   - alert-manager-certificate.yaml
   - argo-certificate.yaml
-  - certificate.yaml
+  # - certificate.yaml
   - prometheus-certificate.yaml
   - vault-certificate.yaml
