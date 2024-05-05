@@ -1,0 +1,35 @@
+fullnameOverride: cluster-autoscaler
+
+replicaCount: 2
+
+nodeSelector:
+  magnum.openstack.org/role: worker
+
+resources:
+  limits:
+    memory: 400Mi
+  requests:
+    cpu: 10m
+    memory: 200Mi
+
+extraArgs:
+  write-status-configmap: true
+  status-config-map-name: cluster-autoscaler-status
+  scale-down-enabled: true
+  balance-similar-node-groups: false
+  scale-down-utilization-threshold: 0.2
+  scale-down-delay-after-add: 5m
+  scale-down-unneeded-time: 10m
+  cordon-node-before-terminating: true
+  max-graceful-termination-sec: 1200
+  ignore-daemonsets-utilization: true
+  ignore-mirror-pods-utilization: true
+  skip-nodes-with-custom-controller-pods: false
+  skip-nodes-with-local-storage: false
+  daemonset-eviction-for-empty-nodes: true
+  daemonset-eviction-for-occupied-nodes: true
+
+serviceMonitor:
+  # serviceMonitor.enabled -- If true, creates a Prometheus Operator ServiceMonitor.
+  enabled: true
+  namespace: observability

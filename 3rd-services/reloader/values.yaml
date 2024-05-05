@@ -1,0 +1,13 @@
+reloader:
+  isArgoRollouts: true
+  reloadStrategy: annotations
+  deployment:
+    nodeSelector:
+      magnum.openstack.org/role: worker
+  
+    resources:
+      limits:
+        memory: 300Mi
+      requests:
+        cpu: 10m
+        memory: 150Mi

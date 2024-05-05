@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netshoot
+  namespace: troubleshootools
+  labels:
+    app: netshoot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: netshoot
+  template:
+    metadata:
+      labels:
+        name: netshoot
+        # sidecar.istio.io/inject: "true" 
+    spec:
+      nodeSelector:
+        magnum.openstack.org/role: worker
+      containers:
+      - name: netshoot
+        securityContext:
+          privileged: true
+        image: nicolaka/netshoot:v0.11
+        command: [ "sleep", "infinity" ]
+        volumeMounts:
+          - name: host
+            mountPath: /host
+      volumes:
+        - name: host
+          hostPath:
+            path: /
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 100%
+    type: RollingUpdate
