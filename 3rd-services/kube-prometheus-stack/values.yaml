@@ -53,8 +53,8 @@ alertmanager:
       - receiver: 'robusta'
         matchers:
           - severity =~ ".*"
-        active_time_intervals:
-          - qld-work-hours
+        # active_time_intervals:
+        #   - qld-work-hours
         continue: true # 
     receivers:
     - name: 'null'
