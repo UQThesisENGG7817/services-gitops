@@ -6,6 +6,10 @@ sinksConfig:
   - discord_sink:
       name: discord_sink
       url: "{{ env.DISCORD_SINK }}"
+  - telegram_sink:
+    name: pinnamon_alerts
+    bot_token: "{{ env.TELEGRAM_TOKEN }}"
+    chat_id: "{{ env.CHAT_ID }}"
 
 clusterName: "potter_gha_2"
 # see https://docs.robusta.dev/master/user-guide/configuration.html#global-config and https://docs.robusta.dev/master/configuration/additional-settings.html#global-config
@@ -359,3 +363,13 @@ runner:
       secretKeyRef:
         name: robusta-secrets
         key: discord_sink
+  - name: TELEGRAM_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secrets
+        key: telegram_token
+  - name: CHAT_ID
+    valueFrom:
+      secretKeyRef:
+        name: robusta-secrets
+        key: chat_id
