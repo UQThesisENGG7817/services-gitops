@@ -7,9 +7,9 @@ sinksConfig:
       name: discord_sink
       url: "{{ env.DISCORD_SINK }}"
   - telegram_sink:
-    name: pinnamon_alerts
-    bot_token: "{{ env.TELEGRAM_TOKEN }}"
-    chat_id: "{{ env.CHAT_ID }}"
+      name: pinnamon_alerts
+      bot_token: "{{ env.TELEGRAM_TOKEN }}"
+      chat_id: "{{ env.CHAT_ID }}"
 
 clusterName: "potter_gha_2"
 # see https://docs.robusta.dev/master/user-guide/configuration.html#global-config and https://docs.robusta.dev/master/configuration/additional-settings.html#global-config
