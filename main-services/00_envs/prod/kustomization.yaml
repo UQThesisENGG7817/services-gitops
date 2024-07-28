@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - project.yaml
   - namespace.yaml
-  # - ../../gha-runner
+  - ../../gha-runner
 
 transformers:
   - commonLabels.yaml
