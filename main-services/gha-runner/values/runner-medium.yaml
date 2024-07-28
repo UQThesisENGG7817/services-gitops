@@ -13,8 +13,6 @@ template:
     containers:
     - name: runner
       image: ghcr.io/uqthesisengg7817/golden-images/actions-runner:2.317.0-e7408e4
-      imagePullSecrets:
-      - name: gha-image-pull-secrets
       imagePullPolicy: IfNotPresent
       command: ["/home/runner/run.sh"]
       lifecycle:
