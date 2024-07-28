@@ -37,7 +37,7 @@ spec:
         version: v3
         releaseName: gha-runner-controller
         valueFiles:
-          - $values/services-gitops/main-services/gha-runner/values/controller.yaml
+          - $values/main-services/gha-runner/values/controller.yaml
     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values

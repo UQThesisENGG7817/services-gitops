@@ -37,8 +37,8 @@ spec:
         version: v3
         releaseName: gha-runner-medium
         valueFiles:
-          - $values/services-gitops/main-services/gha-runner/values/runner-common.yaml
-          - $values/services-gitops/main-services/gha-runner/values/runner-medium.yaml
+          - $values/main-services/gha-runner/values/runner-common.yaml
+          - $values/main-services/gha-runner/values/runner-medium.yaml
     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values
@@ -84,8 +84,8 @@ spec:
         version: v3
         releaseName: gha-runner-large
         valueFiles:
-          - $values/services-gitops/main-services/gha-runner/values/runner-common.yaml
-          - $values/services-gitops/main-services/gha-runner/values/runner-large.yaml
+          - $values/main-services/gha-runner/values/runner-common.yaml
+          - $values/main-services/gha-runner/values/runner-large.yaml
     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values
@@ -131,8 +131,8 @@ spec:
 #         version: v3
 #         releaseName: gha-runner-medium-amd64
 #         valueFiles:
-#           - $values/services-gitops/main-services/gha-runner/values/runner-common.yaml
-#           - $values/services-gitops/main-services/gha-runner/values/runner-medium-amd64.yaml
+#           - $values/main-services/gha-runner/values/runner-common.yaml
+#           - $values/main-services/gha-runner/values/runner-medium-amd64.yaml
 #     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
 #       targetRevision: main
 #       ref: values
@@ -178,8 +178,8 @@ spec:
 #         version: v3
 #         releaseName: gha-runner-large-amd64
 #         valueFiles:
-#           - $values/services-gitops/main-services/gha-runner/values/runner-common.yaml
-#           - $values/services-gitops/main-services/gha-runner/values/runner-large-amd64.yaml
+#           - $values/main-services/gha-runner/values/runner-common.yaml
+#           - $values/main-services/gha-runner/values/runner-large-amd64.yaml
 #     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
 #       targetRevision: main
 #       ref: values
