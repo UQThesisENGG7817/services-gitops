@@ -1,0 +1,72 @@
+# leaderElection will be enabled when replicaCount>1,
+# So, only one replica will in charge of reconciliation at a given time
+# leaderElectionId will be set to {{ define gha-runner-scale-set-controller.fullname }}.
+replicaCount: 1
+
+fullnameOverride: "gha-runner-controller"
+
+resources: {}
+## We usually recommend not to specify default resources and to leave this as a conscious
+## choice for the user. This also increases chances charts run on environments with little
+## resources, such as Minikube. If you do want to specify resources, uncomment the following
+## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Leverage a PriorityClass to ensure your pods survive resource shortages
+# ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+# PriorityClass: system-cluster-critical
+priorityClassName: ""
+
+flags:
+  ## Log level can be set here with one of the following values: "debug", "info", "warn", "error".
+  ## Defaults to "debug".
+  logLevel: "info"
+  ## Log format can be set with one of the following values: "text", "json"
+  ## Defaults to "text"
+  logFormat: "text"
+
+# Webhook service resource
+service:
+  type: ClusterIP
+  port: 443
+
+certManagerEnabled: true
+
+logFormat: text
+
+githubWebhookServer:
+  enabled: true
+  replicaCount: 1
+  useRunnerGroupsVisibility: false
+  logFormat: text
+  secret:
+    enabled: true
+    create: false
+    name: gha-runner-secrets
+  serviceAccount:
+    create: true
+  ingress:
+    enabled: true
+    annotations:
+       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    ingressClassName: nginx
+    tls:
+     - hosts: git-webhook.pinnamon.com
+       secretName: git-webhook-ca-tls
+    hosts:
+      - host: git-webhook.pinnamon.com
+        paths:
+        - path: /
+          pathType: Prefix

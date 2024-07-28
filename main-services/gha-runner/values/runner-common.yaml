@@ -1,0 +1,35 @@
+## githubConfigUrl is the GitHub url for where you want to configure runners
+## ex: https://github.com/myorg/myrepo or https://github.com/myorg
+githubConfigUrl: "https://github.com/UQThesisENGG7817/services-gitops"
+
+## If you have a pre-define Kubernetes secret in the same namespace the gha-runner-scale-set is going to deploy,
+## you can also reference it via `githubConfigSecret: pre-defined-secret`.
+## You need to make sure your predefined secret has all the required secret data set properly.
+##   For a pre-defined secret using GitHub PAT, the secret needs to be created like this:
+##   > kubectl create secret generic pre-defined-secret --namespace=my_namespace --from-literal=github_token='ghp_your_pat'
+##   For a pre-defined secret using GitHub App, the secret needs to be created like this:
+##   > kubectl create secret generic pre-defined-secret --namespace=my_namespace --from-literal=github_app_id=123456 --from-literal=github_app_installation_id=654321 --from-literal=github_app_private_key='-----BEGIN CERTIFICATE-----*******'
+githubConfigSecret: gha-runner
+
+# runnerGroup: "default"
+
+containerMode:
+  type: "dind"  ## type can be set to dind or kubernetes
+#   ## the following is required when containerMode.type=kubernetes
+#   kubernetesModeWorkVolumeClaim:
+#     accessModes: ["ReadWriteOnce"]
+#     # For local testing, use https://github.com/openebs/dynamic-localpv-provisioner/blob/develop/docs/quickstart.md to provide dynamic provision volume with storageClassName: openebs-hostpath
+#     storageClassName: "dynamic-blob-storage"
+#     resources:
+#       requests:
+#         storage: 1Gi
+
+## Optional controller service account that needs to have required Role and RoleBinding
+## to operate this gha-runner-scale-set installation.
+## The helm chart will try to find the controller deployment and its service account at installation time.
+## In case the helm chart can't find the right service account, you can explicitly pass in the following value
+## to help it finish RoleBinding with the right service account.
+## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
+controllerServiceAccount:
+  namespace: gha-runner-controller
+  name: gha-runner-controller

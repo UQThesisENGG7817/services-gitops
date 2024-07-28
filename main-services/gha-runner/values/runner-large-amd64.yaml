@@ -1,0 +1,32 @@
+## name of the runner scale set to create.  Defaults to the helm release name
+runnerScaleSetName: "self-hosted-large-amd64"
+
+## maxRunners is the max number of runners the autoscaling runner set will scale up to.
+# maxRunners: 5
+
+## minRunners is the min number of runners the autoscaling runner set will scale down to.
+minRunners: 0
+
+## template is the PodSpec for each runner Pod
+template:
+  spec:
+    containers:
+    - name: runner
+      image: actions-runner:2.317.0
+      imagePullPolicy: IfNotPresent
+      command: ["/home/runner/run.sh"]
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - "sleep 30s"
+      resources:
+        limits:
+          memory: 10Gi
+        requests:
+          cpu: 4
+          memory: 8Gi
+    nodeSelector:
+      magnum.openstack.org/role: worker
