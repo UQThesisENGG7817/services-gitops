@@ -7,4 +7,5 @@ resources:
   - argo-certificate.yaml
   # - certificate.yaml
   - prometheus-certificate.yaml
+  - git-webhook-certificate.yaml
   - vault-certificate.yaml
