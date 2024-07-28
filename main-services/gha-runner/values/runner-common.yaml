@@ -1,6 +1,6 @@
 ## githubConfigUrl is the GitHub url for where you want to configure runners
 ## ex: https://github.com/myorg/myrepo or https://github.com/myorg
-githubConfigUrl: "https://github.com/UQThesisENGG7817/services-gitops"
+githubConfigUrl: "https://github.com/UQThesisENGG7817"
 
 ## If you have a pre-define Kubernetes secret in the same namespace the gha-runner-scale-set is going to deploy,
 ## you can also reference it via `githubConfigSecret: pre-defined-secret`.
@@ -9,7 +9,7 @@ githubConfigUrl: "https://github.com/UQThesisENGG7817/services-gitops"
 ##   > kubectl create secret generic pre-defined-secret --namespace=my_namespace --from-literal=github_token='ghp_your_pat'
 ##   For a pre-defined secret using GitHub App, the secret needs to be created like this:
 ##   > kubectl create secret generic pre-defined-secret --namespace=my_namespace --from-literal=github_app_id=123456 --from-literal=github_app_installation_id=654321 --from-literal=github_app_private_key='-----BEGIN CERTIFICATE-----*******'
-githubConfigSecret: gha-runner
+githubConfigSecret: gha-runner-secrets
 
 # runnerGroup: "default"
 
@@ -31,5 +31,5 @@ containerMode:
 ## to help it finish RoleBinding with the right service account.
 ## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
 controllerServiceAccount:
-  namespace: gha-runner-controller
+  namespace: gha-runner
   name: gha-runner-controller
