@@ -1,7 +1,7 @@
 # leaderElection will be enabled when replicaCount>1,
 # So, only one replica will in charge of reconciliation at a given time
 # leaderElectionId will be set to {{ define gha-runner-scale-set-controller.fullname }}.
-replicaCount: 1
+replicaCount: 2
 
 fullnameOverride: "gha-runner-controller"
 
@@ -36,10 +36,10 @@ flags:
   ## Defaults to "text"
   logFormat: "text"
 
-# Webhook service resource
-service:
-  type: ClusterIP
-  port: 443
+# # Webhook service resource
+# service:
+#   type: ClusterIP
+#   port: 443
 
 certManagerEnabled: true
 
