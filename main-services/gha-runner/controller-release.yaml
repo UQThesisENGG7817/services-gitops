@@ -6,18 +6,15 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app: gha-runner-controller
+    app: gha-runner
   # annotations:
   #   notifications.argoproj.io/subscribe.slack: cloudops-vn-alerts
 spec:
   project: main-services
   destination:
     name: "in-cluster"
-    namespace: gha-runner-controller
+    namespace: gha-runner
   syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        istio-injection: disabled
     automated:
       prune: true
       selfHeal: true
