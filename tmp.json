@@ -1,0 +1,25 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "annotations": {
+            "argocd.argoproj.io/sync-options": "ServerSideApply=true",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"annotations\":{},\"labels\":{\"argocd.argoproj.io/instance\":\"main-services\"},\"name\":\"gha-runner\"}}\n"
+        },
+        "creationTimestamp": "2024-07-28T14:06:02Z",
+        "labels": {
+            "argocd.argoproj.io/instance": "main-services",
+            "istio-injection": "disabled",
+            "kubernetes.io/metadata.name": "gha-runner"
+        },
+        "name": "gha-runner",
+        "resourceVersion": "28044420",
+        "uid": "2e3fdeac-7910-4f6a-92da-1fcfd7e538a1"
+    },
+    "spec": {
+        "finalizers": []
+    },
+    "status": {
+        "phase": "Active"
+    }
+}
