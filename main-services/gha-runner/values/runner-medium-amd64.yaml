@@ -28,5 +28,7 @@ template:
         requests:
           cpu: 2
           memory: 4Gi
+    imagePullSecrets:
+    - name: gha-image-pull-secrets 
     nodeSelector:
       magnum.openstack.org/role: worker
