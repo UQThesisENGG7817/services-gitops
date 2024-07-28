@@ -32,7 +32,7 @@ spec:
   sources:
     - repoURL: ghcr.io/actions/actions-runner-controller-charts
       chart: gha-runner-scale-set
-      targetRevision: 0.9.4
+      targetRevision: 0.9.2
       helm:
         version: v3
         releaseName: gha-runner-medium
@@ -79,7 +79,7 @@ spec:
   sources:
     - repoURL: ghcr.io/actions/actions-runner-controller-charts
       chart: gha-runner-scale-set
-      targetRevision: 0.9.4
+      targetRevision: 0.9.2
       helm:
         version: v3
         releaseName: gha-runner-large
@@ -126,7 +126,7 @@ spec:
 #   sources:
 #     - repoURL: ghcr.io/actions/actions-runner-controller-charts
 #       chart: gha-runner-scale-set
-#       targetRevision: 0.9.4
+#       targetRevision: 0.9.2
 #       helm:
 #         version: v3
 #         releaseName: gha-runner-medium-amd64
@@ -173,7 +173,7 @@ spec:
 #   sources:
 #     - repoURL: ghcr.io/actions/actions-runner-controller-charts
 #       chart: gha-runner-scale-set
-#       targetRevision: 0.9.4
+#       targetRevision: 0.9.2
 #       helm:
 #         version: v3
 #         releaseName: gha-runner-large-amd64
