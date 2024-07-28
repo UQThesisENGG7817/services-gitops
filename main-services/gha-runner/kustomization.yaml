@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - external-secret.yaml
   - controller-release.yaml
-  # - runner-release.yaml
+  - runner-release.yaml
