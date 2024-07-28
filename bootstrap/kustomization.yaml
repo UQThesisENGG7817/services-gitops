@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  # - main-services.yaml
+  - main-services.yaml
   - 3rd-services.yaml
 
 
@@ -25,7 +25,7 @@ resources:
   #     - op: replace
   #       path: /spec/source/path
   #       value: 3rd-services/00_envs
-
+## If we need to turn off global auto-sync
   # - target:
   #     kind: Application
   #   patch: |-
