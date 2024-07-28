@@ -1,7 +1,7 @@
 # leaderElection will be enabled when replicaCount>1,
 # So, only one replica will in charge of reconciliation at a given time
 # leaderElectionId will be set to {{ define gha-runner-scale-set-controller.fullname }}.
-replicaCount: 2
+replicaCount: 1
 
 fullnameOverride: "gha-runner-controller"
 
