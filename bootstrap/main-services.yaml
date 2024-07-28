@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: bootstrap
   source:
-    path: "3rd-services/00_envs/prod"
+    path: "main-services/00_envs/prod"
     repoURL: https://github.com/UQThesisENGG7817/services-gitops
     targetRevision: HEAD
   syncPolicy:
