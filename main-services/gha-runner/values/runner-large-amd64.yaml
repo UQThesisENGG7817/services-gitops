@@ -26,7 +26,9 @@ template:
         limits:
           memory: 10Gi
         requests:
-          cpu: 4
+          cpu: 2
           memory: 8Gi
+    imagePullSecrets:
+    - name: gha-image-pull-secrets 
     nodeSelector:
       magnum.openstack.org/role: worker
