@@ -31,9 +31,9 @@ template:
         requests:
           cpu: 2
           memory: 4Gi
-      # volumeMounts:
-      # - name: gha-runner-medium-pvc
-      #   mountPath: /home/runner/_work
+      volumeMounts:
+      - name: work
+        mountPath: /home/runner/_work
     imagePullSecrets:
     - name: gha-image-pull-secrets 
     volumes:
