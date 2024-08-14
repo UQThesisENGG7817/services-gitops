@@ -45,6 +45,8 @@ template:
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
+      - name: docker-socket
+        mountPath: /var/run/docker.sock
     imagePullSecrets:
     - name: gha-image-pull-secrets 
     volumes:
