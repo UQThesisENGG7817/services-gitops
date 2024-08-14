@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - external-secret.yaml
+  - pvc.yaml
   - image-pull-secret.yaml
   - controller-release.yaml
   - runner-release.yaml
