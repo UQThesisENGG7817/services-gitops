@@ -9,3 +9,4 @@ resources:
   - prometheus-certificate.yaml
   - git-webhook-certificate.yaml
   - vault-certificate.yaml
+  - longhorn-certificate.yaml
