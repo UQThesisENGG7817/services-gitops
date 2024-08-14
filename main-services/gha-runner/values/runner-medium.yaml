@@ -42,6 +42,8 @@ template:
         requests:
           cpu: 2
           memory: 4Gi
+      securityContext:
+        privileged: true
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
