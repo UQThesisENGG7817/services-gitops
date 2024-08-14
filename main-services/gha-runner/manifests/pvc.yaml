@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: longhorn-gha-runner-medium-pvc
-  namespace: longhorn
+  namespace: gha-runner
 spec:
   accessModes:
     - ReadWriteOnce
