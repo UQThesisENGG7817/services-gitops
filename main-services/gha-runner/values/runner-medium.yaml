@@ -33,5 +33,15 @@ template:
           memory: 4Gi
     imagePullSecrets:
     - name: gha-image-pull-secrets 
+    volumes:
+    - name: gha-runner-medium-pvc
+      ephemeral:
+        volumeClaimTemplate:
+          spec:
+            accessModes: [ "ReadWriteMany" ]
+            storageClassName: "longhorn"
+            resources:
+              requests:
+              storage: 50Gi
     nodeSelector:
       magnum.openstack.org/role: worker
