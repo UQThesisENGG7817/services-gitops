@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-gha-runner-medium-pvc
+  name: gha-runner-medium-pvc
   namespace: gha-runner
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: longhorn
+    - ReadWriteOnce
+  storageClassName: default
   resources:
     requests:
       storage: 50Gi
