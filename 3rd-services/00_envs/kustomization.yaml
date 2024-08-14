@@ -10,6 +10,7 @@ resources:
   - ../external-secrets
   - ../robusta
   - ../nginx
+  - ../longhorn
   - ../cert-manager
   - ../netshoot
   - ../reloader

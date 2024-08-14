@@ -1,0 +1,4 @@
+nameOverride: longhorn
+
+nodeSelector:
+  magnum.openstack.org/role: worker
