@@ -14,15 +14,15 @@ githubConfigSecret: gha-runner-secrets
 # runnerGroup: "default"
 
 containerMode:
-  type: "dind"  ## type can be set to dind or kubernetes
+  type: "kubernetes"  ## type can be set to dind or kubernetes
 #   ## the following is required when containerMode.type=kubernetes
-#   kubernetesModeWorkVolumeClaim:
-#     accessModes: ["ReadWriteOnce"]
-#     # For local testing, use https://github.com/openebs/dynamic-localpv-provisioner/blob/develop/docs/quickstart.md to provide dynamic provision volume with storageClassName: openebs-hostpath
-#     storageClassName: "dynamic-blob-storage"
-#     resources:
-#       requests:
-#         storage: 1Gi
+  kubernetesModeWorkVolumeClaim:
+    accessModes: ["ReadWriteOnce"]
+    # For local testing, use https://github.com/openebs/dynamic-localpv-provisioner/blob/develop/docs/quickstart.md to provide dynamic provision volume with storageClassName: openebs-hostpath
+    storageClassName: "default"
+    resources:
+      requests:
+        storage: 15Gi
 
 ## Optional controller service account that needs to have required Role and RoleBinding
 ## to operate this gha-runner-scale-set installation.
