@@ -33,18 +33,12 @@ template:
           memory: 4Gi
       volumeMounts:
       - name: gha-runner-medium-pvc
-        mountPath: /home/runner/work
+        mountPath: /home/runner/_work
     imagePullSecrets:
     - name: gha-image-pull-secrets 
     volumes:
     - name: gha-runner-medium-pvc
-      ephemeral:
-        volumeClaimTemplate:
-          spec:
-            accessModes: [ "ReadWriteMany" ]
-            storageClassName: "longhorn"
-            resources:
-              requests:
-              storage: 50Gi
+      persistentVolumeClaim:
+        claimName: longhorn-gha-runner-medium-pvc
     nodeSelector:
       magnum.openstack.org/role: worker
