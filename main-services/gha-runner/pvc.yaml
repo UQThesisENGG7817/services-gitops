@@ -5,8 +5,8 @@ metadata:
   namespace: gha-runner
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: longhorn
   resources:
     requests:
-      storage: 5Gi
+      storage: 50Gi
