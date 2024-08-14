@@ -10,8 +10,8 @@ minRunners: 1
 ## template is the PodSpec for each runner Pod
 template:
   spec:
-    # securityContext:
-    #     fsGroup: 1001
+    securityContext:
+        fsGroup: 1001
     # initContainers:
     #   - name: docker-setup
     #     image: busybox:1.35
