@@ -6,3 +6,4 @@ resources:
   - image-pull-secret.yaml
   - controller-release.yaml
   - runner-release.yaml
+  - ../manifests
