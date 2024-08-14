@@ -37,7 +37,7 @@ template:
     imagePullSecrets:
     - name: gha-image-pull-secrets 
     volumes:
-    - name: gha-runner-medium-pvc
+    - name: work
       persistentVolumeClaim:
         claimName: longhorn-gha-runner-medium-pvc
     nodeSelector:
