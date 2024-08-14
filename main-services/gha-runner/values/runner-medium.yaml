@@ -32,7 +32,7 @@ template:
           cpu: 2
           memory: 4Gi
       securityContext:
-        privileged: true
+        fsGroup: 1001
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
