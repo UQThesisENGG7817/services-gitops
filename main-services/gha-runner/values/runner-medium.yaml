@@ -45,7 +45,7 @@ template:
         - |
           sudo chown -R 1001:123 /home/runner/_work      
           /home/runner/run.sh
-        lifecycle:
+      lifecycle:
         preStop:
           exec:
             command:
