@@ -52,6 +52,8 @@ template:
       securityContext:
         privileged: true
       volumeMounts:
+      - name: persistent-runner-data
+        mountPath: /var/lib/docker
       - name: work
         mountPath: /home/runner/_work
       - name: dind-sock
@@ -73,8 +75,6 @@ template:
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
-      - name: fs
-        mountPath: /
       - name: dind-sock
         mountPath: /run/docker
       - name: dind-externals
@@ -86,7 +86,7 @@ template:
       emptyDir: {}
     - name: dind-externals
       emptyDir: {}
-    - name: fs
+    - name: work
       # persistentVolumeClaim:
       #   claimName: gha-runner-medium-pvc
       ephemeral:
@@ -97,7 +97,7 @@ template:
             resources:
               requests:
                 storage: 50Gi
-    - name: work
+    - name: persistent-runner-data
       ephemeral:
         volumeClaimTemplate:
           spec:
