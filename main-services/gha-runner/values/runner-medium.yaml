@@ -46,6 +46,7 @@ template:
           chmod 755 /dind-etc;
           chmod u=rwx,g=rx+s,o=rx /dind-home
           chown 1001:1001 /dind-home
+          chown -R 1001:123 /home/runner/_work
       securityContext:
         runAsUser: 0
       volumeMounts:
