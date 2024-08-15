@@ -11,7 +11,7 @@ minRunners: 1
 template:
   spec:
     securityContext:
-        fsGroup: 1000
+        fsGroup: 1001
     # initContainers:
     #   - name: docker-setup
     #     image: busybox:1.35
@@ -22,7 +22,11 @@ template:
     initContainers:
     - name: init-dind-externals
       image: ghcr.io/actions/actions-runner:latest
-      command: ["cp", "-r", "-v", "/home/runner/externals/.", "/home/runner/tmpDir/"]
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          cp -r -v /home/runner/externals/. /home/runner/tmpDir/
+          chmod 666 /home/runner/_work   
       volumeMounts:
       - name: dind-externals
         mountPath: /home/runner/tmpDir
