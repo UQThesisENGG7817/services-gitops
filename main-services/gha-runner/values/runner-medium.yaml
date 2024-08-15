@@ -22,6 +22,8 @@ template:
     initContainers:
     - name: init-dind-externals
       image: ghcr.io/actions/actions-runner:latest
+      securityContext:
+        runAsUser: 0
       command: ["/bin/sh", "-c"]
       args:
         - |
