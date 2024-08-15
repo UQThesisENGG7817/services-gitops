@@ -137,7 +137,7 @@ template:
             storageClassName: "default"
             resources:
               requests:
-                storage: 200Gi
+                storage: 100Gi
     # - name: docker-socket
     #   hostPath:
     #     path: /var/run/docker.sock
