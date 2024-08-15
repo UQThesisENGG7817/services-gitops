@@ -43,7 +43,7 @@ template:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          sudo chown -R 1001:1001 /home/runner/_work      
+          sudo chown -R 1001:123 /home/runner/_work      
           /home/runner/run.sh
         lifecycle:
         preStop:
