@@ -24,6 +24,8 @@ template:
       image: ghcr.io/actions/actions-runner:latest
       command: ["cp", "-r", "-v", "/home/runner/externals/.", "/home/runner/tmpDir/"]
       volumeMounts:
+      - name: persistent-runner-data
+        mountPath: /var/lib/docker
       - name: dind-externals
         mountPath: /home/runner/tmpDir
     containers:
@@ -75,6 +77,8 @@ template:
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
+      - name: persistent-runner-data
+        mountPath: /var/lib/docker
       - name: dind-sock
         mountPath: /run/docker
       - name: dind-externals
