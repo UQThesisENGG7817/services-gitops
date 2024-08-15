@@ -73,6 +73,8 @@ template:
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
+      - name: fs
+        mountPath: /
       - name: dind-sock
         mountPath: /run/docker
       - name: dind-externals
@@ -84,7 +86,7 @@ template:
       emptyDir: {}
     - name: dind-externals
       emptyDir: {}
-    - name: work
+    - name: fs
       # persistentVolumeClaim:
       #   claimName: gha-runner-medium-pvc
       ephemeral:
