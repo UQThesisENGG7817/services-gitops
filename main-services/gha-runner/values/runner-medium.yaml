@@ -11,7 +11,7 @@ minRunners: 1
 template:
   spec:
     securityContext:
-        fsGroup: 1001
+        fsGroup: 1000
     # initContainers:
     #   - name: docker-setup
     #     image: busybox:1.35
