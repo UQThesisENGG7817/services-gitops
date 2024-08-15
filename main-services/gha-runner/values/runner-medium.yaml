@@ -32,7 +32,7 @@ template:
       imagePullPolicy: IfNotPresent
       env:
       - name: DOCKER_HOST
-        value: unix:///var/run/docker.sock
+        value: unix:///run/docker.sock
       - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
         value: "false"
       command: ["/home/runner/run.sh"]
