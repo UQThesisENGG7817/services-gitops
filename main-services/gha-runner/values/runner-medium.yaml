@@ -23,12 +23,12 @@ template:
     - name: init-dind-externals
       image: ghcr.io/actions/actions-runner:latest
       securityContext:
-        runAsUser: 0
+        privileged: true
       command: ["/bin/sh", "-c"]
       args:
         - |
           cp -r -v /home/runner/externals/. /home/runner/tmpDir/
-          sudo chown -R 1001:1001 /home/runner/_work   
+          sudo chown -R 1001:1001 /home/runner/_work
       volumeMounts:
       - name: dind-externals
         mountPath: /home/runner/tmpDir
