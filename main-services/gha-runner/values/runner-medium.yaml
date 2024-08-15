@@ -22,10 +22,13 @@ template:
     initContainers:
     - name: init-dind-externals
       image: ghcr.io/actions/actions-runner:latest
+      securityContext:
+        runAsUser: 0
       command: ["/bin/sh", "-c"]
       args:
         - |
           cp -r -v /home/runner/externals/. /home/runner/tmpDir/
+          sudo chown -R 1001:123 /home/runner/_work
       volumeMounts:
       - name: dind-externals
         mountPath: /home/runner/tmpDir
@@ -42,8 +45,7 @@ template:
         value: "false"
       command: ["/bin/sh", "-c"]
       args:
-        - |
-          sudo chown -R 1001:123 /home/runner/_work      
+        - |      
           /home/runner/run.sh
       lifecycle:
         preStop:
@@ -78,6 +80,10 @@ template:
       env:
         - name: DOCKER_GROUP_GID
           value: "123"
+      securityContext:
+        privileged: true
+        runAsUser: 1001
+        runAsGroup: 1001
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
