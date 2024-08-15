@@ -20,10 +20,11 @@ containerMode:
   kubernetesModeWorkVolumeClaim:
     accessModes: ["ReadWriteOnce"]
     # For local testing, use https://github.com/openebs/dynamic-localpv-provisioner/blob/develop/docs/quickstart.md to provide dynamic provision volume with storageClassName: openebs-hostpath
-    storageClassName: "longhorn"
+    # storageClassName: "longhorn" # https://www.reddit.com/r/kubernetes/comments/10war0o/can_someone_explain_me_the_true_benefits_of/
+    storageClassName: "default"
     resources:
       requests:
-        storage: 50Gi
+        storage: 100Gi
 
 ## Optional controller service account that needs to have required Role and RoleBinding
 ## to operate this gha-runner-scale-set installation.
