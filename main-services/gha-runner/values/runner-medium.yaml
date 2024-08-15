@@ -62,7 +62,7 @@ template:
       imagePullPolicy: IfNotPresent
       env:
       - name: DOCKER_HOST
-        value: unix:///var/run/docker/docker.sock
+        value: unix:///var/run/docker.sock
       - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
         value: "false"
       command: ["/bin/sh", "-c"]
@@ -96,7 +96,7 @@ template:
       image: docker:dind-rootless
       args:
         - dockerd
-        - --host=unix:///var/run/docker/docker.sock
+        - --host=unix:///var/run/docker.sock
         - --data-root=/home/runner/_work
         - --group=$(DOCKER_GROUP_GID)
       env:
