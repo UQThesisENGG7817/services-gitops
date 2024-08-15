@@ -22,8 +22,6 @@ template:
     initContainers:
     - name: init-dind-externals
       image: ghcr.io/actions/actions-runner:latest
-      securityContext:
-        runAsUser: 0
       command: ["/bin/sh", "-c"]
       args:
         - |
@@ -88,7 +86,7 @@ template:
       - name: work
         mountPath: /home/runner/_work
       - name: dind-sock
-        mountPath: /run/docker
+        mountPath: /var/run
         readOnly: true
       # - name: docker-socket
       #   mountPath: /var/run/docker.sock
