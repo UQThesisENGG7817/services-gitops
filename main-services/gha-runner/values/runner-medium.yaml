@@ -88,8 +88,7 @@ template:
       - name: work
         mountPath: /home/runner/_work
       - name: dind-sock
-        mountPath: /run/docker
-        readOnly: true
+        mountPath: /var/run
       # - name: docker-socket
       #   mountPath: /var/run/docker.sock
     - name: dind
