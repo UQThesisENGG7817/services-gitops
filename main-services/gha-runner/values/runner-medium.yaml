@@ -19,13 +19,20 @@ template:
     #     volumeMounts:
     #       - name: docker-socket
     #         mountPath: /var/run/docker.sock
+    initContainers:
+    - name: init-dind-externals
+      image: ghcr.io/actions/actions-runner:latest
+      command: ["cp", "-r", "-v", "/home/runner/externals/.", "/home/runner/tmpDir/"]
+      volumeMounts:
+      - name: dind-externals
+        mountPath: /home/runner/tmpDir
     containers:
     - name: runner
       image: ghcr.io/uqthesisengg7817/golden-images/actions-runner:2.317.0-28b49d1
       imagePullPolicy: IfNotPresent
       env:
-      #  - name: DOCKER_HOST
-      #    value: unix:///var/run/docker.sock
+      - name: DOCKER_HOST
+        value: unix:///var/run/docker.sock
       - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
         value: "false"
       command: ["/home/runner/run.sh"]
@@ -47,11 +54,36 @@ template:
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
+      - name: dind-sock
+        mountPath: /run/docker
+        readOnly: true
       # - name: docker-socket
       #   mountPath: /var/run/docker.sock
+      - name: dind
+        image: docker:dind
+        args:
+          - dockerd
+          - --host=unix:///run/docker/docker.sock
+          - --group=$(DOCKER_GROUP_GID)
+        env:
+          - name: DOCKER_GROUP_GID
+            value: "123"
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: work
+          mountPath: /home/runner/_work
+        - name: dind-sock
+          mountPath: /run/docker
+        - name: dind-externals
+          mountPath: /home/runner/externals
     imagePullSecrets:
     - name: gha-image-pull-secrets 
     volumes:
+    - name: dind-sock
+      emptyDir: {}
+    - name: dind-externals
+      emptyDir: {}
     - name: work
       # persistentVolumeClaim:
       #   claimName: gha-runner-medium-pvc
