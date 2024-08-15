@@ -28,7 +28,7 @@ template:
       args:
         - |
           cp -r -v /home/runner/externals/. /home/runner/tmpDir/
-          chown -R 1001:1001 /home/runner/_work   
+          sudo chown -R 1001:1001 /home/runner/_work   
       volumeMounts:
       - name: dind-externals
         mountPath: /home/runner/tmpDir
