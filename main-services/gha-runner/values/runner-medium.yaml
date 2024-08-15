@@ -50,6 +50,8 @@ template:
       securityContext:
         runAsUser: 0
       volumeMounts:
+        - name: work
+          mountPath: /home/runner/_work
         - mountPath: /dind-etc
           name: dind-etc
         - mountPath: /dind-home
