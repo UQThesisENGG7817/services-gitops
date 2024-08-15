@@ -58,8 +58,6 @@ template:
         requests:
           cpu: 2
           memory: 4Gi
-      securityContext:
-        privileged: true
       volumeMounts:
       # - name: persistent-runner-data
       #   mountPath: /var/lib/docker
@@ -80,8 +78,6 @@ template:
       env:
         - name: DOCKER_GROUP_GID
           value: "123"
-      securityContext:
-        privileged: true
       volumeMounts:
       - name: work
         mountPath: /home/runner/_work
