@@ -59,24 +59,24 @@ template:
         readOnly: true
       # - name: docker-socket
       #   mountPath: /var/run/docker.sock
-      - name: dind
-        image: docker:dind
-        args:
-          - dockerd
-          - --host=unix:///run/docker/docker.sock
-          - --group=$(DOCKER_GROUP_GID)
-        env:
-          - name: DOCKER_GROUP_GID
-            value: "123"
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: work
-          mountPath: /home/runner/_work
-        - name: dind-sock
-          mountPath: /run/docker
-        - name: dind-externals
-          mountPath: /home/runner/externals
+    - name: dind
+      image: docker:dind
+      args:
+        - dockerd
+        - --host=unix:///run/docker/docker.sock
+        - --group=$(DOCKER_GROUP_GID)
+      env:
+        - name: DOCKER_GROUP_GID
+          value: "123"
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - name: work
+        mountPath: /home/runner/_work
+      - name: dind-sock
+        mountPath: /run/docker
+      - name: dind-externals
+        mountPath: /home/runner/externals
     imagePullSecrets:
     - name: gha-image-pull-secrets 
     volumes:
