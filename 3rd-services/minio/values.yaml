@@ -249,7 +249,8 @@ consoleIngress:
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector:
-  magnum.openstack.org/role: workertolerations: []
+  magnum.openstack.org/role: worker
+tolerations: []
 affinity: {}
 topologySpreadConstraints: []
 
