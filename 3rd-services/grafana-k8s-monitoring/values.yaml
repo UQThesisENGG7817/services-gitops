@@ -1,0 +1,467 @@
+---
+# Cluster settings
+cluster:
+  # -- The name of this cluster, which will be set in all labels. Required.
+  # @section -- Cluster Settings
+  name: "potter_gha_2"
+
+# Configuration for External Services
+externalServices:
+  # Connection information for Prometheus
+  prometheus:
+    host: "http://mimir.pinnamon.com"
+    queryEndpoint: /prometheus/api/v1/query
+    writeEndpoint: /api/v1/push
+    externalLabels:
+      environment: shared
+    tenantId: shared
+    authMode: none
+
+  # Connection information for Grafana Loki
+  loki:
+    host: "http://loki.pinnamon.com"
+    queryEndpoint: /loki/api/v1/query
+    writeEndpoint: /loki/api/v1/push
+    tenantId: shared
+    authMode: none
+
+  # Connection information for Grafana Tempo
+  tempo:
+    host: "http://tempo.pinnamon.com"
+    protocol: "otlphttp"
+    searchEndpoint: /api/search
+    tenantId: shared
+    authMode: none
+
+# Settings related to capturing and forwarding metrics orgi
+metrics:
+  autoDiscover:
+    enabled: true
+    annotations:
+      # -- Annotation for enabling scraping for this service or pod. Value should be either "true" or "false"
+      # @section -- Metrics Job: Auto-Discovery
+      scrape: "k8s.grafana.com/scrape"
+      # -- Annotation for overriding the job label
+      # @section -- Metrics Job: Auto-Discovery
+      job: "k8s.grafana.com/job"
+      # -- Annotation for overriding the instance label
+      # @section -- Metrics Job: Auto-Discovery
+      instance: "k8s.grafana.com/instance"
+      # -- Annotation for setting or overriding the metrics path. If not set, it defaults to /metrics
+      # @section -- Metrics Job: Auto-Discovery
+      metricsPath: "k8s.grafana.com/metrics.path"
+      # -- Annotation for setting the metrics port by name.
+      # @section -- Metrics Job: Auto-Discovery
+      metricsPortName: "k8s.grafana.com/metrics.portName"
+      # -- Annotation for setting the metrics port by number.
+      # @section -- Metrics Job: Auto-Discovery
+      metricsPortNumber: "k8s.grafana.com/metrics.portNumber"
+      # -- Annotation for setting the metrics scheme, default: http.
+      # @section -- Metrics Job: Auto-Discovery
+      metricsScheme: "k8s.grafana.com/metrics.scheme"
+      # -- Annotation for overriding the scrape interval for this service or pod. Value should be a duration like "15s, 1m".
+      # Overrides metrics.autoDiscover.scrapeInterval
+      # @section -- Metrics Job: Auto-Discovery
+      metricsScrapeInterval: "k8s.grafana.com/metrics.scrapeInterval"
+
+  alloy:
+    enabled: true
+
+  kube-state-metrics:
+    enabled: true
+
+  node-exporter:
+    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
+
+  kubelet:
+    enabled: true
+
+  cadvisor:
+    enabled: true
+
+  apiserver:
+    enabled: false
+
+  kubeControllerManager:
+    enabled: false
+
+  kubeProxy:
+    enabled: false
+
+  kubeScheduler:
+    enabled: false
+
+  cost:
+    enabled: false
+
+  kepler:
+    enabled: false
+
+  podMonitors:
+    enabled: true
+    namespaces: []
+    selector: ""
+
+  probes:
+    enabled: true
+    namespaces: []
+    selector: ""
+
+  serviceMonitors:
+    enabled: true
+    namespaces: []
+    selector: ""
+
+  kubernetesMonitoring:
+    enabled: true
+
+# Settings related to capturing and forwarding logs
+logs:
+  enabled: true
+
+  # Settings for Kubernetes pod logs from the worker
+  pod_logs:
+    enabled: true
+    namespaces: []
+    excludeNamespaces: []
+
+    # When set to "all", every pod (filtered by the namespaces list below) will have their logs gathered, but you can
+    # use the annotation to remove a pod from that list.
+    # e.g. Pods with the annotation k8s.grafana.com/logs.autogather: false will not have their logs gathered.
+    # When set to "annotation", only pods with the annotation set to something other than "false", "no" or "skip" will
+    # have their logs gathered.
+    # Possible values: "all" "annotation"
+    # -- Controls the behavior of discovering pods for logs.
+    # @section -- Logs Scrape: Pod Logs
+    discovery: "all"
+
+    # The annotation to control the behavior of gathering logs from this pod. If a pod has this annotation, it will
+    # either enable or disable gathering of logs.
+    # -- Pod annotation to use for controlling log discovery.
+    # @section -- Logs Scrape: Pod Logs
+    annotation: "k8s.grafana.com/logs.autogather"
+
+    # -- Controls the behavior of gathering pod logs.
+    # When set to `volumes`, Grafana Alloy will use HostPath volume mounts on the cluster nodes to access the pod
+    # log files directly.
+    # When set to `api`, Grafana Alloy will access pod logs via the API server. This method may be preferable if
+    # your cluster prevents DaemonSets, HostPath volume mounts, or for other reasons.
+    # @section -- Logs Scrape: Pod Logs
+    gatherMethod: "volumes"
+
+    # -- Loki labels to set with values copied from the Kubernetes Pod labels.
+    # Format: `<loki_label>: <kubernetes_label>`.
+    # @section -- Logs Scrape: Pod Logs
+    labels:
+      app_kubernetes_io_name: app.kubernetes.io/name
+
+  # PodLog Objects
+  podLogsObjects:
+    enabled: false
+
+  # Settings for scraping Kubernetes cluster events
+  cluster_events:
+    enabled: true
+    namespaces: []
+
+  # Settings for scraping Kubernetes Worker journal logs
+  journal:
+    enabled: false
+
+# Settings related to capturing and forwarding traces
+traces:
+  enabled: true
+
+# Settings related to capturing and forwarding profiles
+profiles:
+  enabled: false
+
+# Telemetry data receiver settings
+receivers:
+  grpc:
+    enabled: true
+
+  http:
+    enabled: true
+
+  grafanaCloudMetrics:
+    enabled: false
+
+# -- Extra configuration that will be added to the Grafana Alloy configuration file.
+extraConfig: |
+  discovery.relabel "node_exporter" {
+    targets = discovery.kubernetes.nodes.targets
+    rule {
+      source_labels = ["__address__"]
+      regex         = "([^:]+):.*"
+      target_label  = "__address__"
+      replacement   = "$1:9100"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_name"]
+      target_label  = "name"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_arch"]
+      target_label  = "arch"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_instance_type"]
+      target_label  = "instance_type"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_kubernetes_io_os"]
+      target_label  = "os"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_region"]
+      target_label  = "region"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_zone"]
+      target_label  = "zone"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_nodegroup_role"]
+      target_label  = "role"
+    }
+  }
+
+  prometheus.scrape "node_exporter" {
+    job_name = "integrations/node_exporter"
+    targets = discovery.relabel.node_exporter.output
+    scrape_interval = "60s"
+    clustering {
+      enabled = true
+    }
+    forward_to = [prometheus.relabel.node_exporter.receiver]
+  }
+
+  prometheus.relabel "node_exporter" {
+    max_cache_size = 100000
+    forward_to = [prometheus.relabel.metrics_service.receiver]
+  }
+
+# Setting for the config validator job, run as a pre-install and pre-upgrade hook to validate that the generated
+# configuration, including extraConfig settings are valid.
+configValidator:
+  enabled: true
+  nodeSelector:
+    magnum.openstack.org/role: worker
+
+# Settings for the test job, which runs queries against Prometheus, Loki, and/or Tempo to check for data that should be
+# available based on the current configuration. Runnable by "helm test"
+test:
+  enabled: true
+  nodeSelector:
+    magnum.openstack.org/role: worker
+
+# Settings for the config analysis pod, which asks Grafana Alloy for an analysis of expected metric discoveries and
+# scrapes. Runnable by "helm test"
+configAnalysis:
+  enabled: true
+  nodeSelector:
+    magnum.openstack.org/role: worker
+
+# Settings for the Kube State Metrics deployment
+# You can use this sections to make modifications to the Kube State Metrics deployment.
+# See https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics for available values.
+kube-state-metrics:
+  enabled: true
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  metricLabelsAllowlist:
+    - nodes=[*]
+    - pods=[*]
+  ## -- https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml#L2031-L2038
+  # releaseLabel: true
+  # prometheus:
+  #   monitor:
+  #     enabled: true
+
+# Settings for the Node Exporter deployment
+# You can use this sections to make modifications to the Node Exporter deployment.
+# See https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-node-exporter for available values.
+prometheus-node-exporter:
+  enabled: true
+  priorityClassName: system-node-critical
+
+# Settings for the Prometheus Operator CRD deployment
+# You can use this sections to make modifications to the Prometheus Operator CRD deployment.
+# See https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-operator-crds for available values.
+prometheus-operator-crds:
+  enabled: true
+
+# Settings for the OpenCost deployment
+# You can use this sections to make modifications to the OpenCost deployment.
+# See https://github.com/opencost/opencost-helm-chart for available values.
+# @section -- Deployment: [OpenCost](https://github.com/opencost/opencost-helm-chart)
+opencost:
+  enabled: false
+
+  opencost:
+    exporter:
+      defaultClusterId: "potter_gha_2"
+    prometheus:
+      existingSecretName: ~
+      external:
+        url: "http://mimir.pinnamon.com/prometheus"
+    ui:
+      enabled: true
+    nodeSelector:
+      magnum.openstack.org/role: worker
+
+# Settings for the Grafana Alloy instance that gathers metrics, and opens receivers for application data.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+alloy:
+  logging:
+    level: info
+    format: logfmt
+
+  liveDebugging:
+    enabled: false
+
+  alloy:
+    mounts:
+      extra:
+        - name: kubernetes-monitoring-telemetry
+          mountPath: /etc/kubernetes-monitoring-telemetry
+        - mountPath: /data/alloy
+          name: data
+    storagePath: /data/alloy
+    uiPathPrefix: /ui/metrics
+
+  controller:
+    replicas: 1
+    priorityClassName: system-node-critical
+    nodeSelector:
+      magnum.openstack.org/role: worker
+    volumeClaimTemplates:
+      - metadata:
+          name: data
+        spec:
+          storageClassName: default
+          resources:
+            requests:
+              storage: 25Gi
+          accessModes:
+            - ReadWriteOnce
+          volumeMode: Filesystem
+  ingress:
+    enabled: true
+    annotations: 
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    path: /ui/metrics
+    faroPort: 12345
+    ingressClassName: nginx
+    hosts:
+      - host: alloy.pinnamon.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+    - hosts:
+      - alloy.pinnamon.com
+      secretName: alloy-ca-tls
+
+# Settings for the Grafana Alloy instance that gathers Cluster events.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+alloy-events:
+  logging:
+    level: info
+    format: logfmt
+
+  liveDebugging:
+    enabled: false
+
+  alloy:
+    uiPathPrefix: /ui/events
+
+  controller:
+    replicas: 1  # Only one replica should be used, otherwise multiple copies of cluster events might get sent to Loki.
+    nodeSelector:
+      nodegroup-role: observability
+      beta.kubernetes.io/arch: arm64
+
+  ingress:
+    enabled: true
+    annotations: 
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    path: /ui/events
+    faroPort: 12345
+    ingressClassName: nginx
+    hosts:
+      - host: alloy.pinnamon.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+    - hosts:
+      - alloy.pinnamon.com
+      secretName: alloy-ca-tls
+
+# Settings for the Grafana Alloy instance that gathers pod logs.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+alloy-logs:
+  controller:
+    priorityClassName: system-node-critical
+  logging:
+    level: info
+    format: logfmt
+
+  liveDebugging:
+    enabled: false
+
+  alloy:
+    uiPathPrefix: /ui/logs
+
+  ingress:
+    enabled: true
+    annotations: 
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    path: /ui/logs
+    faroPort: 12345
+    ingressClassName: nginx
+    hosts:
+      - host: alloy.pinnamon.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+    - hosts:
+      - alloy.pinnamon.com
+      secretName: alloy-ca-tls
+
+# Settings for the Grafana Alloy instance that gathers profiles.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+alloy-profiles:
+  logging:
+    level: info
+    format: logfmt
+
+  liveDebugging:
+    enabled: false
+
+  alloy:
+    uiPathPrefix: /ui/profiles
+
+  ingress:
+    enabled: true
+    annotations: 
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    path: /ui/profiles
+    faroPort: 12345
+    ingressClassName: nginx
+    hosts:
+      - host: alloy.pinnamon.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+    - hosts:
+      - alloy.pinnamon.com
+      secretName: alloy-ca-tls

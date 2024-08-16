@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-k8s-monitoring-release
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: grafana-k8s-monitoring
+spec:
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      jqPathExpressions:
+      - .spec.volumeClaimTemplates[]?.apiVersion
+      - .spec.volumeClaimTemplates[]?.kind
+  project: 3rd-services
+  destination:
+    name: "in-cluster"
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+      - ServerSideApply=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: k8s-monitoring
+      targetRevision: 1.4.2
+      helm:
+        releaseName: grafana-k8s-monitoring
+        valueFiles:
+          - $values/3rd-services/grafana-k8s-monitoring/values.yaml
+    - repoURL: https://github.com/UQThesisENGG7817/services-gitops
+      targetRevision: main
+      ref: values
