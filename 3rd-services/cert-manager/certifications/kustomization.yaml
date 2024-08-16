@@ -11,6 +11,7 @@ resources:
   - tempo-certificate.yaml
   - mimir-certificate.yaml
   - loki-certificate.yaml
+  - alloy-certificate.yaml
   - git-webhook-certificate.yaml
   - vault-certificate.yaml
   - minio-certificate.yaml
