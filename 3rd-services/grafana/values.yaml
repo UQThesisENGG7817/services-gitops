@@ -242,10 +242,7 @@ ingress:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
   ingressClassName: nginx
   hosts:
-    - host: grafana.pinnamon.com
-      paths:
-        - path: /
-          pathType: Prefix
+    - grafana.pinnamon.com
   tls:
   - hosts:
     - grafana.pinnamon.com
