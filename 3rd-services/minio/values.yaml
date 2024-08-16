@@ -203,15 +203,13 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
   ingressClassName: nginx
-    hosts:
-    - host: minio.pinnamon.com
-      paths:
-        - path: /
-          pathType: Prefix
-    tls:
-    - hosts:
-      - minio.pinnamon.com
-      secretName: minio-ca-tls
+  path: /
+  hosts:
+  - minio.pinnamon.com
+  tls:
+   - hosts:
+     - minio.pinnamon.com
+     secretName: minio-ca-tls
 
 consoleService:
   type: ClusterIP
@@ -239,15 +237,13 @@ consoleIngress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
   ingressClassName: nginx
-    hosts:
-    - host: minio-console.pinnamon.com
-      paths:
-        - path: /
-          pathType: Prefix
-    tls:
-    - hosts:
-      - minio-console.pinnamon.com
-      secretName: minio-ca-tls
+  path: /
+  hosts:
+  - minio-console.pinnamon.com
+  tls:
+   - hosts:
+     - minio-console.pinnamon.com
+     secretName: minio-ca-tls
 
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
