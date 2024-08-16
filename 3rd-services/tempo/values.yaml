@@ -525,8 +525,7 @@ distributor:
             topologyKey: topology.kubernetes.io/zone
   # -- Node selector for distributor pods
   nodeSelector:
-    nodegroup-role: observability
-    kubernetes.io/arch: arm64
+    magnum.openstack.org/role: worker
   # -- Tolerations for distributor pods
   tolerations: []
   # -- Extra volumes for distributor pods
