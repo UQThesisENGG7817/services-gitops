@@ -356,10 +356,7 @@ alloy:
     faroPort: 12345
     ingressClassName: nginx
     hosts:
-      - host: alloy.pinnamon.com
-        paths:
-          - path: /
-            pathType: Prefix
+    - alloy.pinnamon.com
     tls:
     - hosts:
       - alloy.pinnamon.com
@@ -393,10 +390,7 @@ alloy-events:
     faroPort: 12345
     ingressClassName: nginx
     hosts:
-      - host: alloy.pinnamon.com
-        paths:
-          - path: /
-            pathType: Prefix
+    - alloy.pinnamon.com
     tls:
     - hosts:
       - alloy.pinnamon.com
@@ -451,6 +445,7 @@ alloy-profiles:
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     path: /ui/profiles
+    pathType: Prefix
     faroPort: 12345
     ingressClassName: nginx
     hosts:
