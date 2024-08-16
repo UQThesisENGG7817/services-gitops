@@ -480,7 +480,13 @@ postJob:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+envVars:
+  MINIO_ROOT_USER: "minio"
+  MINIO_URL: "minio"
+  MINIO_HOST: "https://minio.pinnamon.com"
 
+secVars:
+  MINIO_ROOT_PASSWORD: minio123
 ## Use this field to add environment variables relevant to MinIO server. These fields will be passed on to MinIO container(s)
 ## when Chart is deployed
 environment:
