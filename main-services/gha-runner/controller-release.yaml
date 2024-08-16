@@ -7,8 +7,6 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   labels:
     app: gha-runner
-  # annotations:
-  #   notifications.argoproj.io/subscribe.slack: cloudops-vn-alerts
 spec:
   project: main-services
   destination:
