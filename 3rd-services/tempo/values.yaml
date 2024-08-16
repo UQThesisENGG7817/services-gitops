@@ -1490,7 +1490,6 @@ memcachedExporter:
     # -- Memcached Exporter resource requests and limits
   resources: {}
 
-metaMonitoring:
   # ServiceMonitor configuration
   # metaMonitoringAgent configures the built in Grafana Agent that can scrape metrics and logs and send them to a local or remote destination
 

@@ -33,7 +33,7 @@ spec:
       helm:
         releaseName: mimir-distributed
         valueFiles:
-          - $values/gitops/3rd-services/mimir/values.yaml
+          - $values/3rd-services/mimir/values.yaml
     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values
