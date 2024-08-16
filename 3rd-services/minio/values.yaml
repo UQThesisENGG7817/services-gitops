@@ -90,8 +90,8 @@ runtimeClassName: ""
 ## rootUser and rootPassword is generated when not set
 ## Distributed MinIO ref: https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html
 ##
-rootUser: "admin"
-rootPassword: "admin"
+rootUser: "admin123"
+rootPassword: "admin123"
 
 ## Use existing Secret that store following variables:
 ##
@@ -480,13 +480,7 @@ postJob:
   nodeSelector: {}
   tolerations: []
   affinity: {}
-envVars:
-  MINIO_ROOT_USER: "minio"
-  MINIO_URL: "minio"
-  MINIO_HOST: "https://minio.pinnamon.com"
 
-secVars:
-  MINIO_ROOT_PASSWORD: minio123
 ## Use this field to add environment variables relevant to MinIO server. These fields will be passed on to MinIO container(s)
 ## when Chart is deployed
 environment:
