@@ -5,7 +5,7 @@ runnerScaleSetName: "self-hosted-medium-amd64"
 # maxRunners: 5
 
 ## minRunners is the min number of runners the autoscaling runner set will scale down to.
-minRunners: 1
+minRunners: 0
 
 ## template is the PodSpec for each runner Pod
 template:
