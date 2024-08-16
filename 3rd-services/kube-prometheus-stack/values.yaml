@@ -294,3 +294,9 @@ prometheus:
       #       target_label: namespace
       #     - source_labels: [__meta_kubernetes_service_name]
       #       target_label: service
+prometheus-node-exporter:
+  prometheus:
+    monitor:
+      # Use additional scrape config to scrape node-exporter
+      # https://stackoverflow.com/questions/54722137/labels-from-nodes-to-daemonset-kube-prometheus-exporter-node
+      enabled: false
