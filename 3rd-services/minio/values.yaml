@@ -355,9 +355,9 @@ users:
   ## Add new policies as explained here https://min.io/docs/minio/kubernetes/upstream/administration/identity-access-management.html#access-management
   ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
   ## make sure to disable this if you are using LDAP.
-  - accessKey: consoleadmin
-    secretKey: console123
-    policy: consoleAdmin
+- accessKey: consoleadmin
+  secretKey: console123
+  policy: consoleAdmin
   # Or you can refer to specific secret
   #- accessKey: externalSecret
   #  existingSecret: my-secret
