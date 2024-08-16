@@ -893,7 +893,7 @@ read:
 # --  Configuration for the backend pod(s)
 backend:
   # -- Number of replicas for the backend
-  replicas: 3
+  replicas: 1
   autoscaling:
     # -- Enable autoscaling for the backend.
     enabled: false
