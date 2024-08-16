@@ -8,7 +8,7 @@ mimir:
           bucket_name: potter-mimir
           access_key_id: consoleadmin
           secret_access_key: console123
-          region: null
+          region: us-east-1
           endpoint: minio.pinnamon.com
           
     blocks_storage:
@@ -17,7 +17,7 @@ mimir:
         bucket_name: potter-mimir-blocks
         access_key_id: consoleadmin
         secret_access_key: console123
-        region: null
+        region: us-east-1
         endpoint: minio.pinnamon.com
     limits:
       # Limit queries to 500 days. You can override this on a per-tenant basis.
