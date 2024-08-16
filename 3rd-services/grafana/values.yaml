@@ -734,8 +734,8 @@ grafana.ini:
     token_url: https://github.com/login/oauth/access_token
     api_url: https://api.github.com/user
     allowed_organizations: UQThesisENGG7817
-    client_id: $__env{GF_AUTH_GOOGLE_CLIENT_ID}
-    client_secret: $__env{GF_AUTH_GOOGLE_CLIENT_SECRET}
+    client_id: $__env{GF_AUTH_GITHUB_CLIENT_ID}
+    client_secret: $__env{GF_AUTH_GITHUB_CLIENT_SECRET}
     allowed_domains: pinnamon.com
     role_attribute_path: contains(groups[*], '@UQThesisENGG7817/devops-team') && 'GrafanaAdmin' || 'Viewer'
 ## LDAP Authentication can be enabled with the following values on grafana.ini
