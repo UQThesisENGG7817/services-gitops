@@ -7,6 +7,11 @@ resources:
   - argo-certificate.yaml
   # - certificate.yaml
   - prometheus-certificate.yaml
+  - grafana-certificate.yaml
+  - tempo-certificate.yaml
+  - mimir-certificate.yaml
+  - loki-certificate.yaml
   - git-webhook-certificate.yaml
   - vault-certificate.yaml
+  - minio-certificate.yaml
   - longhorn-certificate.yaml
