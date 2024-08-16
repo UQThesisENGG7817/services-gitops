@@ -1384,7 +1384,7 @@ storage:
     # -- The supported storage backends are gcs, s3 and azure, as specified in https://grafana.com/docs/tempo/latest/configuration/#storage
     backend: s3
     s3:
-      s3: http://consoleadmin:console123@minio.default.svc.cluster.local:9000
+      bucket: http://consoleadmin:console123@minio.default.svc.cluster.local:9000
       endpoint: http://minio.default.svc.cluster.local:9000
       region: null    # The worker pool is used primarily when finding traces by id, but is also used by other.
     pool:
