@@ -322,13 +322,24 @@ loki:
     # Loki requires a bucket for chunks and the ruler. GEL requires a third bucket for the admin API.
     # Please provide these values if you are using object storage.
     #   admin: FIXME
-    type: filesystem
+    bucketNames:
+      chunks: potter-loki
+      ruler: potter-loki
+    type: s3
+    s3:
+      s3: http://consoleadmin:console123@minio.default.svc.cluster.local:9000
+      endpoint: http://minio.default.svc.cluster.local:9000
+      s3ForcePathStyle: true
+      access_key_id: "consoleadmin"
+      secret_access_key: "console123"
+      region: null    # The worker pool is used primarily when finding traces by id, but is also used by other.
+      http_config:
+        idle_conn_timeout: 90s
+        response_header_timeout: 0s
     filesystem:
       chunks_directory: /var/loki/chunks
       rules_directory: /var/loki/rules
       admin_api_directory: /var/loki/admin
-  commonStorageConfig:
-    type: filesystem
   # -- Configure memcached as an external cache for chunk and results cache. Disabled by default
   # must enable and specify a host for each cache you would like to use.
   memcached:
