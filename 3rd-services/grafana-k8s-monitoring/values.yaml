@@ -426,7 +426,7 @@ alloy-logs:
     faroPort: 12345
     ingressClassName: nginx
     hosts:
-    - host: alloy.pinnamon.com
+    - alloy.pinnamon.com
     tls:
     - hosts:
       - alloy.pinnamon.com
@@ -454,7 +454,7 @@ alloy-profiles:
     faroPort: 12345
     ingressClassName: nginx
     hosts:
-    - host: alloy.pinnamon.com
+    - alloy.pinnamon.com
     tls:
     - hosts:
       - alloy.pinnamon.com
