@@ -908,8 +908,7 @@ queryFrontend:
             topologyKey: topology.kubernetes.io/zone
   # -- Node selector for query-frontend pods
   nodeSelector:
-    nodegroup-role: observability
-    kubernetes.io/arch: arm64
+    magnum.openstack.org/role: worker
   # -- Tolerations for query-frontend pods
   tolerations: []
   # -- Extra volumes for query-frontend pods
@@ -1385,7 +1384,7 @@ storage:
     backend: s3
     s3:
       bucket: potter-tempo
-      endpoint: minio.minio.svc.cluster.local:9000
+      endpoint: minio.pinnamon.com
       access_key: consoleadmin
       secret_key: console123
       insecure: true
