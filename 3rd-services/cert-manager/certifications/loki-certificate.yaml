@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: loki-certificate
+  namespace: observability
+spec:
+  duration: 2160h #90d
+  renewBefore: 360h # 15d
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  commonName: "loki.pinnamon.com"
+  dnsNames:
+    - 'loki.pinnamon.com'
+  secretName: loki-ca-tls
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
