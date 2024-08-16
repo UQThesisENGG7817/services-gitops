@@ -1,0 +1,193 @@
+# Mimir config
+mimir:
+  structuredConfig:
+    common:
+      storage:
+        backend: filesystem
+    blocks_storage:
+      backend: filesystem
+    limits:
+      # Limit queries to 500 days. You can override this on a per-tenant basis.
+      max_total_query_length: 12000h
+      # Adjust max query parallelism to 16x sharding, without sharding we can run 15d queries fully in parallel.
+      # With sharding we can further shard each day another 16 times. 15 days * 16 shards = 240 subqueries.
+      max_query_parallelism: 240
+      # Avoid caching results newer than 10m because some samples can be delayed
+      # This presents caching incomplete results
+      max_cache_freshness: 10m
+      # Maximum number of label names per series.
+      max_label_names_per_series: 50
+      # Per-tenant ingestion rate limit in samples per second.
+      ingestion_rate: 20000
+      # Per-tenant allowed ingestion burst size (in number of samples).
+      ingestion_burst_size: 400000
+      # The maximum number of in-memory series per tenant, across the cluster before
+      # replication. 0 to disable.
+      max_global_series_per_user: 0
+      # Allow ingestion of out-of-order samples up to 5 minutes since the latest received sample for the series.
+      out_of_order_time_window: 5m
+      # Delete from storage metrics data older than 14 days (2 weeks)
+      compactor_blocks_retention_period: 14d
+    compactor:
+      # Time before a block marked for deletion is deleted from bucket
+      deletion_delay: 2h
+      # For tenants marked for deletion, this is the time between deletion
+      # of the last block, and doing final cleanup (marker files, debug files) of the
+      # tenant
+      tenant_cleanup_delay: 6h
+
+####################
+# Read path
+####################
+query_frontend:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+query_scheduler:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+querier:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+store_gateway:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  persistentVolume:
+    enabled: true
+    size: 20Gi
+    storageClass: default
+  zoneAwareReplication:
+    enabled: false
+    maxUnavailable: 1
+    zones:
+      - name: zone-a
+        nodeSelector:
+          magnum.openstack.org/role: worker
+      - name: zone-b
+        nodeSelector:
+          magnum.openstack.org/role: worker
+      - name: zone-c
+        nodeSelector:
+          magnum.openstack.org/role: worker
+####################
+## Write path
+####################
+distributor:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+ingester:
+  resources:
+    requests:
+      cpu: 200m
+      memory: 2Gi
+    limits:
+      memory: 3Gi
+  persistentVolume:
+    enabled: true
+    size: 20Gi
+    storageClass: default
+  zoneAwareReplication:
+    enabled: false
+    maxUnavailable: 1
+    zones:
+      - name: zone-a
+        nodeSelector:
+          magnum.openstack.org/role: worker
+      - name: zone-b
+        nodeSelector:
+          magnum.openstack.org/role: worker
+      - name: zone-c
+        nodeSelector:
+          magnum.openstack.org/role: worker
+####################
+## Storage
+####################
+ruler:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+alertmanager:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 64Mi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+compactor:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  nodeSelector:
+    magnum.openstack.org/role: worker
+####################
+## Others
+####################
+rollout_operator:
+  nodeSelector:
+    magnum.openstack.org/role: worker
+####################
+## Gateway
+####################
+nginx:
+  enabled: true
+gateway:
+  enabledNonEnterprise: true
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  ingress:
+    enabled: true
+    annotations: 
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    ingressClassName: nginx
+    hosts:
+      - host: mimir.pinnamon.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+    - hosts:
+      - mimir.pinnamon.com
+      secretName: mimir-ca-tls
+####################
+## MinIO Object Storage
+####################
+minio:
+  enabled: false

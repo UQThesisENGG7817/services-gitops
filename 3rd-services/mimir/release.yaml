@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gha-runner-controller-release
+  name: mimir-release
   namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app: gha-runner
+    app: mimir
 spec:
-  project: main-services
+  project: 3rd-services
   destination:
     name: "in-cluster"
-    namespace: gha-runner
+    namespace: observability
   syncPolicy:
     automated:
       prune: true
@@ -20,7 +20,6 @@ spec:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
       - PrunePropagationPolicy=foreground
-      - ServerSideApply=true
     retry:
       limit: 2
       backoff:
@@ -28,16 +27,13 @@ spec:
         factor: 2
         maxDuration: 3m0s
   sources:
-    - repoURL: ghcr.io/actions/actions-runner-controller-charts
-      chart: gha-runner-scale-set-controller
-      targetRevision: 0.8.3
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: mimir-distributed
+      targetRevision: 5.4.0
       helm:
-        version: v3
-        releaseName: gha-runner-controller
+        releaseName: mimir-distributed
         valueFiles:
-          - $values/main-services/gha-runner/values/controller.yaml
+          - $values/gitops/3rd-services/mimir/values.yaml
     - repoURL: https://github.com/UQThesisENGG7817/services-gitops
       targetRevision: main
       ref: values
-# https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml
-# https://github.com/actions/actions-runner-controller/blob/master/charts/actions-runner-controller/values.yaml

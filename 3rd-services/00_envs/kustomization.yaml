@@ -5,12 +5,20 @@ resources:
   - ../01_project
   ### No base - overlays
   - ../argo-rollouts
+  ### Observability Stack
   - ../metrics-server
   - ../kube-prometheus-stack
-  - ../external-secrets
   - ../robusta
+  - ../loki
+  - ../grafana
+  - ../tempo
+  - ../mimir
+  - ../grafana-k8s-monitoring
+  ### Observability Stack
+  - ../external-secrets
   - ../nginx
   - ../longhorn
+  - ../minio
   - ../cert-manager
   - ../netshoot
   - ../reloader
