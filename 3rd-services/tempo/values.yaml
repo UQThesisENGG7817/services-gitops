@@ -1386,7 +1386,6 @@ storage:
       endpoint: minio.pinnamon.com
       access_key: consoleadmin
       secret_key: console123
-      insecure: true
       region: us-east-1    # The worker pool is used primarily when finding traces by id, but is also used by other.
     pool:
       # -- Total number of workers pulling jobs from the queue
