@@ -1388,6 +1388,7 @@ storage:
       endpoint: minio.minio.svc.cluster.local:9000
       access_key: consoleadmin
       secret_key: console123
+      insecure: true
       region: null    # The worker pool is used primarily when finding traces by id, but is also used by other.
     pool:
       # -- Total number of workers pulling jobs from the queue
