@@ -327,8 +327,8 @@ loki:
       ruler: potter-loki
     type: s3
     s3:
-      s3: http://consoleadmin:console123@minio.default.svc.cluster.local:9000
-      endpoint: http://minio.default.svc.cluster.local:9000
+      s3: http://consoleadmin:console123@minio.minio.svc.cluster.local:9000
+      endpoint: http://minio.minio.svc.cluster.local:9000
       s3ForcePathStyle: true
       access_key_id: "consoleadmin"
       secret_access_key: "console123"
