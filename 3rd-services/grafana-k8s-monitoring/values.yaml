@@ -378,8 +378,7 @@ alloy-events:
   controller:
     replicas: 1  # Only one replica should be used, otherwise multiple copies of cluster events might get sent to Loki.
     nodeSelector:
-      nodegroup-role: observability
-      beta.kubernetes.io/arch: arm64
+      magnum.openstack.org/role: worker
 
   ingress:
     enabled: true
