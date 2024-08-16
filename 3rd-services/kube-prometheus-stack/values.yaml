@@ -300,3 +300,6 @@ prometheus-node-exporter:
       # Use additional scrape config to scrape node-exporter
       # https://stackoverflow.com/questions/54722137/labels-from-nodes-to-daemonset-kube-prometheus-exporter-node
       enabled: false
+
+nodeExporter:
+  enabled: false ## disabled due to alloy using port
