@@ -9,8 +9,8 @@ cluster:
 externalServices:
   # Connection information for Prometheus
   prometheus:
-    host: "https://mimir.pinnamon.com"
     # host: "https://logging.pinnamon.com"
+    host: https://mimir.pinnamon.com
     queryEndpoint: /prometheus/api/v1/query
     writeEndpoint: /api/v1/push
     externalLabels:
@@ -20,7 +20,7 @@ externalServices:
 
   # Connection information for Grafana Loki
   loki:
-    host: "https://loki.pinnamon.com"
+    host: https://loki.pinnamon.com
     queryEndpoint: /loki/api/v1/query
     writeEndpoint: /loki/api/v1/push
     tenantId: shared
@@ -28,7 +28,7 @@ externalServices:
 
   # Connection information for Grafana Tempo
   tempo:
-    host: "http://tempo.pinnamon.com"
+    host: http://tempo.pinnamon.com
     protocol: "oltphttp"
     searchEndpoint: /api/search
     tenantId: shared
