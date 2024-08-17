@@ -2,8 +2,7 @@ controller:
   ingressClassResource:
     name: nginx
   config:
-    data:
-      proxy-connect-timeout: "10s"
-      proxy-read-timeout: "10s"
-      client-max-body-size: "10m"
-      proxy-buffer-size: "128k" 
+    proxy-connect-timeout: "10s"
+    proxy-read-timeout: "10s"
+    client-max-body-size: "100m"
+    proxy-buffer-size: "256k" 
