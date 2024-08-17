@@ -32,10 +32,6 @@ externalServices:
     searchEndpoint: /api/search
     tenantId: shared
     authMode: none
-    secret:
-      create: false
-      name: "grafana-secrets"
-      namespace: "observability"
 # Settings related to capturing and forwarding metrics orgi
 metrics:
   autoDiscover:
