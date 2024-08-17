@@ -65,13 +65,13 @@ metrics:
       metricsScrapeInterval: "k8s.grafana.com/metrics.scrapeInterval"
 
   alloy:
-    enabled: true
+    enabled: false
 
   kube-state-metrics:
     enabled: true
 
   node-exporter:
-    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
+    enabled: true # Disable due to custom Alloy pipeline in `extraConfig`
 
   kubelet:
     enabled: true
