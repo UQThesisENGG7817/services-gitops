@@ -302,4 +302,4 @@ prometheus:
 #       enabled: false
 
 nodeExporter:
-  enabled: true ## disabled due to alloy using port
+  enabled: false ## disabled due to alloy using port

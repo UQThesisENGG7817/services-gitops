@@ -285,7 +285,7 @@ kube-state-metrics:
 # You can use this sections to make modifications to the Node Exporter deployment.
 # See https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-node-exporter for available values.
 prometheus-node-exporter:
-  enabled: false
+  enabled: true
   priorityClassName: system-node-critical
 
 # Settings for the Prometheus Operator CRD deployment
