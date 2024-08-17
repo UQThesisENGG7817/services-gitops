@@ -9,7 +9,8 @@ cluster:
 externalServices:
   # Connection information for Prometheus
   prometheus:
-    host: "https://mimir.pinnamon.com"
+    # host: "https://mimir.pinnamon.com"
+    host: "https://logging.pinnamon.com"
     queryEndpoint: /prometheus/api/v1/query
     writeEndpoint: /api/v1/push
     externalLabels:
@@ -72,7 +73,7 @@ metrics:
     enabled: true
 
   node-exporter:
-    enabled: true # Disable due to custom Alloy pipeline in `extraConfig`
+    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
 
   kubelet:
     enabled: true
@@ -246,7 +247,7 @@ extraConfig: |
 # Setting for the config validator job, run as a pre-install and pre-upgrade hook to validate that the generated
 # configuration, including extraConfig settings are valid.
 configValidator:
-  enabled: false
+  enabled: true
   nodeSelector:
     magnum.openstack.org/role: worker
 
