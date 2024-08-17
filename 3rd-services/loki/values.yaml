@@ -663,7 +663,7 @@ gateway:
 # Configuration for the write pod(s)
 write:
   # -- Number of replicas for the write
-  replicas: 1
+  replicas: 2
   autoscaling:
     # -- Enable autoscaling for the write.
     enabled: false
