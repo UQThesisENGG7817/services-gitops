@@ -65,7 +65,9 @@ metrics:
       metricsScrapeInterval: "k8s.grafana.com/metrics.scrapeInterval"
 
   alloy:
-    enabled: false
+    enabled: true
+    metricsTuning:
+      useIntegrationAllowList: true
 
   kube-state-metrics:
     enabled: true
