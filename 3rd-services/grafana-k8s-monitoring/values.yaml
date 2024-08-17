@@ -250,7 +250,7 @@ extraConfig: |
 # Setting for the config validator job, run as a pre-install and pre-upgrade hook to validate that the generated
 # configuration, including extraConfig settings are valid.
 configValidator:
-  enabled: true
+  enabled: false
   nodeSelector:
     magnum.openstack.org/role: worker
 
