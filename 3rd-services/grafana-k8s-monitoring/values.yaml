@@ -66,13 +66,12 @@ metrics:
 
   alloy:
     enabled: true
-    metricsTuning:
-      useIntegrationAllowList: true
+
   kube-state-metrics:
     enabled: true
 
   node-exporter:
-    enabled: true # Disable due to custom Alloy pipeline in `extraConfig`
+    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
 
   kubelet:
     enabled: true
