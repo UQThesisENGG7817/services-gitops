@@ -30,7 +30,10 @@ externalServices:
   tempo:
     host: https://tempo.pinnamon.com
     protocol: "oltp"
-    searchEndpoint: /api/search
+    searchEndpoint: https://tempo.pinnamon.com/api/search
+    # basicAuth:
+    #   usernameKey: GRAFANA_K8S_MONITORING_LOKI_USERNAME
+    #   passwordKey: GRAFANA_K8S_MONITORING_PASSWORD
     tenantId: shared
     authMode: none
 # Settings related to capturing and forwarding metrics orgi
