@@ -5,6 +5,7 @@ metadata:
     app: kube-prometheus-stack
     app.kubernetes.io/instance: kube-prometheus-stack
     app.kubernetes.io/part-of: kube-prometheus-stack
+    import-to-mimir: "true"
   name: kube-prometheus-stack-node.records
   # namespace: observability
 spec:
