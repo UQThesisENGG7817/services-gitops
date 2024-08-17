@@ -4,5 +4,5 @@ controller:
   config:
     proxy-connect-timeout: "10s"
     proxy-read-timeout: "10s"
-    client-max-body-size: "100m"
+    client-max-body-size: "500m"
     proxy-buffer-size: "256k" 
