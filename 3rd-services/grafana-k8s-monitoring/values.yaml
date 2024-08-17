@@ -9,8 +9,8 @@ cluster:
 externalServices:
   # Connection information for Prometheus
   prometheus:
-    # host: "https://mimir.pinnamon.com"
-    host: "https://logging.pinnamon.com"
+    host: "https://mimir.pinnamon.com"
+    # host: "https://logging.pinnamon.com"
     queryEndpoint: /prometheus/api/v1/query
     writeEndpoint: /api/v1/push
     externalLabels:
