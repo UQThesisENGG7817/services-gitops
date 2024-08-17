@@ -73,7 +73,7 @@ metrics:
     enabled: true
 
   node-exporter:
-    enabled: true # Disable due to custom Alloy pipeline in `extraConfig`
+    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
 
   kubelet:
     enabled: true
@@ -190,59 +190,59 @@ receivers:
     enabled: false
 
 # -- Extra configuration that will be added to the Grafana Alloy configuration file.
-# extraConfig: |
-#   discovery.relabel "node_exporter" {
-#     targets = discovery.kubernetes.nodes.targets
-#     rule {
-#       source_labels = ["__address__"]
-#       regex         = "([^:]+):.*"
-#       target_label  = "__address__"
-#       replacement   = "$1:9100"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_name"]
-#       target_label  = "name"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_arch"]
-#       target_label  = "arch"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_instance_type"]
-#       target_label  = "instance_type"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_label_kubernetes_io_os"]
-#       target_label  = "os"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_region"]
-#       target_label  = "region"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_zone"]
-#       target_label  = "zone"
-#     }
-#     rule {
-#       source_labels = ["__meta_kubernetes_node_label_nodegroup_role"]
-#       target_label  = "role"
-#     }
-#   }
+extraConfig: |
+  discovery.relabel "node_exporter" {
+    targets = discovery.kubernetes.nodes.targets
+    rule {
+      source_labels = ["__address__"]
+      regex         = "([^:]+):.*"
+      target_label  = "__address__"
+      replacement   = "$1:9100"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_name"]
+      target_label  = "name"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_arch"]
+      target_label  = "arch"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_instance_type"]
+      target_label  = "instance_type"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_kubernetes_io_os"]
+      target_label  = "os"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_region"]
+      target_label  = "region"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_zone"]
+      target_label  = "zone"
+    }
+    rule {
+      source_labels = ["__meta_kubernetes_node_label_nodegroup_role"]
+      target_label  = "role"
+    }
+  }
 
-#   prometheus.scrape "node_exporter" {
-#     job_name = "integrations/node_exporter"
-#     targets = discovery.relabel.node_exporter.output
-#     scrape_interval = "60s"
-#     clustering {
-#       enabled = true
-#     }
-#     forward_to = [prometheus.relabel.node_exporter.receiver]
-#   }
+  prometheus.scrape "node_exporter" {
+    job_name = "integrations/node_exporter"
+    targets = discovery.relabel.node_exporter.output
+    scrape_interval = "60s"
+    clustering {
+      enabled = true
+    }
+    forward_to = [prometheus.relabel.node_exporter.receiver]
+  }
 
-#   prometheus.relabel "node_exporter" {
-#     max_cache_size = 100000
-#     forward_to = [prometheus.relabel.metrics_service.receiver]
-#   }
+  prometheus.relabel "node_exporter" {
+    max_cache_size = 100000
+    forward_to = [prometheus.relabel.metrics_service.receiver]
+  }
 
 # Setting for the config validator job, run as a pre-install and pre-upgrade hook to validate that the generated
 # configuration, including extraConfig settings are valid.
