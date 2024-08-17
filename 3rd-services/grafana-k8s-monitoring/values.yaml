@@ -28,7 +28,7 @@ externalServices:
   # Connection information for Grafana Tempo
   tempo:
     host: "https://tempo.pinnamon.com"
-    protocol: "otlphttps"
+    protocol: "oltp"
     searchEndpoint: /api/search
     tenantId: shared
     authMode: none
@@ -66,12 +66,13 @@ metrics:
 
   alloy:
     enabled: true
-
+    metricsTuning:
+      useIntegrationAllowList: true
   kube-state-metrics:
     enabled: true
 
   node-exporter:
-    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
+    enabled: true # Disable due to custom Alloy pipeline in `extraConfig`
 
   kubelet:
     enabled: true
