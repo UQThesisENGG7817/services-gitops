@@ -28,8 +28,8 @@ externalServices:
 
   # Connection information for Grafana Tempo
   tempo:
-    host: http://tempo.pinnamon.com
-    protocol: "oltphttp"
+    host: https://tempo.pinnamon.com
+    protocol: "oltp"
     searchEndpoint: /api/search
     tenantId: shared
     authMode: none
