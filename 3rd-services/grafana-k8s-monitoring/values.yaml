@@ -29,13 +29,10 @@ externalServices:
   # Connection information for Grafana Tempo
   tempo:
     host: https://tempo.pinnamon.com
-    protocol: "oltp"
-    searchEndpoint: https://tempo.pinnamon.com/api/search
-    basicAuth:
-      username: GRAFANA_K8S_MONITORING_LOKI_USERNAME
-      password: GRAFANA_K8S_MONITORING_PASSWORD
+    protocol: "otlp"
+    searchEndpoint: /api/search
     tenantId: shared
-    authMode: basic
+    authMode: none
 # Settings related to capturing and forwarding metrics orgi
 metrics:
   autoDiscover:
