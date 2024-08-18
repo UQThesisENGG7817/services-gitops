@@ -179,7 +179,7 @@ rollout_operator:
 ## Gateway
 ####################
 nginx:
-  enabled: true
+  enabled: false
 gateway:
   enabledNonEnterprise: true
   nodeSelector:
