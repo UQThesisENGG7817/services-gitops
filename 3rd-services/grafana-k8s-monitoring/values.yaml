@@ -319,7 +319,7 @@ opencost:
 # See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
 alloy:
   logging:
-    level: info
+    level: debug
     format: logfmt
 
   liveDebugging:
@@ -405,7 +405,7 @@ alloy-logs:
   controller:
     priorityClassName: system-node-critical
   logging:
-    level: info
+    level: debug
     format: logfmt
 
   liveDebugging:
