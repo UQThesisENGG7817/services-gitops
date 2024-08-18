@@ -185,9 +185,11 @@ receivers:
 
   http:
     enabled: true
-
+  processors:
+    batch:
+      size: 4096
   grafanaCloudMetrics:
-    enabled: false
+    enabled: true
 
 # -- Extra configuration that will be added to the Grafana Alloy configuration file.
 extraConfig: |
@@ -321,7 +323,7 @@ alloy:
     format: logfmt
 
   liveDebugging:
-    enabled: true
+    enabled: false
 
   alloy:
     mounts:
