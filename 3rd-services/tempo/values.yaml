@@ -1382,7 +1382,7 @@ storage:
     # -- The supported storage backends are gcs, s3 and azure, as specified in https://grafana.com/docs/tempo/latest/configuration/#storage
     backend: s3
     s3:
-      bucket: potter-tempoo
+      bucket: potter-tempo
       endpoint: minio.pinnamon.com
       access_key: consoleadmin
       secret_key: console123
