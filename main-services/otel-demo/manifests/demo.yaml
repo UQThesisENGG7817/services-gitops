@@ -20,7 +20,8 @@ spec:
       containers:
       - name: otel-demo
         image: ghcr.io/php1301/otel-demo:v1.0.0
-        command: ["opentelemetry-instrument", "flask", "run", "--host", "0.0.0.0", "--port", "8082", "--debug"]
+        command: ["opentelemetry-instrument"]
+        args: ["flask", "run", "--host", "0.0.0.0", "--port", "8082", "--debug"]
         ports:
         - containerPort: 8082
   strategy:
