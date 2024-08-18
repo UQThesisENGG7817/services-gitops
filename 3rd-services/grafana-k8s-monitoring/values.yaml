@@ -28,7 +28,7 @@ externalServices:
 
   # Connection information for Grafana Tempo
   tempo:
-    host: https://tempoo.pinnamon.com
+    host: https://tempo.pinnamon.com
     protocol: "otlp"
     searchEndpoint: /api/search
     tenantId: shared
@@ -173,7 +173,19 @@ logs:
 # Settings related to capturing and forwarding traces
 traces:
   enabled: true
-
+  receiver:
+    filters:
+      span:
+        - attributes["http.route"] == "/live"
+        - attributes["http.route"] == "/healthy"
+        - attributes["http.route"] == "/ready"
+    transforms:
+      resource:
+        - limit(attributes, 100, [])
+        - truncate_all(attributes, 4096)
+      span:
+        - limit(attributes, 100, [])
+        - truncate_all(attributes, 4096)
 # Settings related to capturing and forwarding profiles
 profiles:
   enabled: false
