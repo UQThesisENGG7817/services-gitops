@@ -1402,13 +1402,13 @@ storage:
 # Global overrides
 global_overrides:
   per_tenant_override_config: /runtime-config/overrides.yaml
-
-# Per tenants overrides
-overrides:
   defaults:
     ingestion:
-      strategy: global
       limit_bytes: 15000000
+
+# Per tenants overrides
+overrides: {}
+
 # memcached is for all of the Tempo pieces to coordinate with each other.
 # you can use your self memcacherd by set enable: false and host + service
 memcached:
@@ -1766,7 +1766,7 @@ gateway:
           }
 
           location = /distributor/ring {
-            set $distributor {{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }};
+
             proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
           }
 
