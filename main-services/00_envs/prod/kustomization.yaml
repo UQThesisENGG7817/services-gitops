@@ -5,6 +5,7 @@ resources:
   - project.yaml
   - namespace.yaml
   - ../../gha-runner
+  - ../../otel-demo
 
 transformers:
   - commonLabels.yaml
