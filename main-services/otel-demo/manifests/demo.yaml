@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-demo
+  namespace: troubleshootools
+  labels:
+    app: otel-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: otel-demo
+  template:
+    metadata:
+      labels:
+        name: otel-demo
+    spec:
+      nodeSelector:
+        magnum.openstack.org/role: worker
+      containers:
+      - name: otel-demo
+        image: ghcr.io/php1301/otel-demo:v1.0.0
+        command: [ "sleep", "infinity" ]
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 100%
+    type: RollingUpdate
