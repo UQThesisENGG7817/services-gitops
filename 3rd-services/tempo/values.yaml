@@ -1045,7 +1045,10 @@ memberlist:
 # -- Config file contents for Tempo distributed. Passed through the `tpl` function to allow templating
 traces:
   otlp:
-    enabled: true
+    http:
+      enabled: true
+    grpc:
+      enabled: true
 # @default -- See values.yaml
 config: |
   multitenancy_enabled: {{ .Values.multitenancyEnabled }}
