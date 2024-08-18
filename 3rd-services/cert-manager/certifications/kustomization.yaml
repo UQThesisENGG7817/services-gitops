@@ -12,7 +12,8 @@ resources:
   - mimir-certificate.yaml
   - loki-certificate.yaml
   - alloy-certificate.yaml
-  - git-webhook-certificate.yaml
+  # - git-webhook-certificate.yaml
+  - otel-demo-certificate.yaml
   - vault-certificate.yaml
   - minio-certificate.yaml
   - longhorn-certificate.yaml
