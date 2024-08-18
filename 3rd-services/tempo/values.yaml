@@ -1407,7 +1407,7 @@ global_overrides:
   per_tenant_override_config: /runtime-config/overrides.yaml
   defaults:
     ingestion:
-      limit_bytes: 15000000
+      rate_limit_bytes: 15000000
 
 # Per tenants overrides
 overrides: {}
