@@ -1043,7 +1043,9 @@ memberlist:
   packet_write_timeout: "5s"
 
 # -- Config file contents for Tempo distributed. Passed through the `tpl` function to allow templating
-
+traces:
+  otlp:
+    enabled: true
 # @default -- See values.yaml
 config: |
   multitenancy_enabled: {{ .Values.multitenancyEnabled }}
