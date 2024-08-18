@@ -321,7 +321,7 @@ alloy:
     format: logfmt
 
   liveDebugging:
-    enabled: false
+    enabled: true
 
   alloy:
     mounts:
