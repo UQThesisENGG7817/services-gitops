@@ -1018,7 +1018,7 @@ queryFrontend:
   # -- Extra volumes for federation-frontend deployment
   extraVolumes: []
 
-multitenancyEnabled: true
+multitenancyEnabled: false
 
 # -- Memberlist configuration. Please refer to https://grafana.com/docs/tempo/latest/configuration/#memberlist
 memberlist:
@@ -1787,7 +1787,18 @@ gateway:
           {{- end }}
         }
       }
-
+##############################################################################
+# The values in and after the `enterprise:` key configure the enterprise features
+enterprise:
+  # Enable enterprise features. License must be provided, nginx gateway is not installed, instead
+  # the enterprise gateway is used.
+  enabled: false
+  image:
+    # -- Grafana Enterprise Metrics container image repository. Note: for Grafana Tempo use the value 'image.repository'
+    repository: grafana/enterprise-traces
+    # -- Grafana Enterprise Metrics container image tag. Note: for Grafana Tempo use the value 'image.tag'
+    tag: v2.4.0
+    # Note: pullPolicy and optional pullSecrets are set in toplevel 'image' section, not here
 license:
   contents: 'NOTAVALIDLICENSE'
   external: false
