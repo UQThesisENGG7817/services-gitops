@@ -1353,7 +1353,7 @@ server:
   # --  HTTP server listen host
   httpListenPort: 3100
   # -- Log level. Can be set to trace, debug, info (default), warn, error, fatal, panic
-  logLevel: info
+  logLevel: trace
   # -- Log format. Can be set to logfmt (default) or json.
   logFormat: logfmt
   # -- Max gRPC message size that can be received
