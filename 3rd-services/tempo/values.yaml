@@ -1676,109 +1676,110 @@ gateway:
     resolver: ''
     # -- Config file contents for Nginx. Passed through the `tpl` function to allow templating
     # @default -- See values.yaml
-    # file: |
-    #   worker_processes  5;  ## Default: 1
-    #   error_log  /dev/stderr;
-    #   pid        /tmp/nginx.pid;
-    #   worker_rlimit_nofile 8192;
+    file: |
+      worker_processes  5;  ## Default: 1
+      error_log  /dev/stderr;
+      pid        /tmp/nginx.pid;
+      worker_rlimit_nofile 8192;
 
-    #   events {
-    #     worker_connections  4096;  ## Default: 1024
-    #   }
+      events {
+        worker_connections  4096;  ## Default: 1024
+      }
 
-    #   http {
-    #     client_body_temp_path /tmp/client_temp;
-    #     proxy_temp_path       /tmp/proxy_temp_path;
-    #     fastcgi_temp_path     /tmp/fastcgi_temp;
-    #     uwsgi_temp_path       /tmp/uwsgi_temp;
-    #     scgi_temp_path        /tmp/scgi_temp;
+      http {
+        client_body_temp_path /tmp/client_temp;
+        proxy_temp_path       /tmp/proxy_temp_path;
+        fastcgi_temp_path     /tmp/fastcgi_temp;
+        uwsgi_temp_path       /tmp/uwsgi_temp;
+        scgi_temp_path        /tmp/scgi_temp;
 
-    #     proxy_http_version    1.1;
+        proxy_http_version    1.1;
 
-    #     default_type application/octet-stream;
-    #     log_format   {{ .Values.gateway.nginxConfig.logFormat }}
+        default_type application/octet-stream;
+        log_format   {{ .Values.gateway.nginxConfig.logFormat }}
 
-    #     {{- if .Values.gateway.verboseLogging }}
-    #     access_log   /dev/stderr  main;
-    #     {{- else }}
+        {{- if .Values.gateway.verboseLogging }}
+        access_log   /dev/stderr  main;
+        {{- else }}
 
-    #     map $status $loggable {
-    #       ~^[23]  0;
-    #       default 1;
-    #     }
-    #     access_log   /dev/stderr  main  if=$loggable;
-    #     {{- end }}
+        map $status $loggable {
+          ~^[23]  0;
+          default 1;
+        }
+        access_log   /dev/stderr  main  if=$loggable;
+        {{- end }}
 
-    #     sendfile     on;
-    #     tcp_nopush   on;
-    #     {{- if .Values.gateway.nginxConfig.resolver }}
-    #     resolver {{ .Values.gateway.nginxConfig.resolver }};
-    #     {{- else }}
-    #     resolver {{ .Values.global.dnsService }}.{{ .Values.global.dnsNamespace }}.svc.{{ .Values.global.clusterDomain }};
-    #     {{- end }}
+        sendfile     on;
+        tcp_nopush   on;
+        {{- if .Values.gateway.nginxConfig.resolver }}
+        resolver {{ .Values.gateway.nginxConfig.resolver }};
+        {{- else }}
+        resolver {{ .Values.global.dnsService }}.{{ .Values.global.dnsNamespace }}.svc.{{ .Values.global.clusterDomain }};
+        {{- end }}
 
-    #     {{- with .Values.gateway.nginxConfig.httpSnippet }}
-    #     {{ . | nindent 2 }}
-    #     {{- end }}
+        {{- with .Values.gateway.nginxConfig.httpSnippet }}
+        {{ . | nindent 2 }}
+        {{- end }}
 
-    #     server {
-    #       listen             8080;
+        server {
+          listen             8080;
 
-    #       {{- if .Values.gateway.basicAuth.enabled }}
-    #       auth_basic           "Tempo";
-    #       auth_basic_user_file /etc/nginx/secrets/.htpasswd;
-    #       {{- end }}
+          {{- if .Values.gateway.basicAuth.enabled }}
+          auth_basic           "Tempo";
+          auth_basic_user_file /etc/nginx/secrets/.htpasswd;
+          {{- end }}
 
-    #       location = / {
-    #         return 200 'OK';
-    #         auth_basic off;
-    #       }
+          location = / {
+            return 200 'OK';
+            auth_basic off;
+          }
 
-    #       location = /jaeger/api/traces {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:14268/api/traces;
-    #       }
+          location = /jaeger/api/traces {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:14268/api/traces;
+          }
 
-    #       location = /zipkin/spans {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:9411/spans;
-    #       }
+          location = /zipkin/spans {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:9411/spans;
+          }
 
-    #       location = /v1/traces {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:4318/v1/traces;
-    #       }
+          location = /v1/traces {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:4318/v1/traces;
+          }
 
-    #       location = /otlp/v1/traces {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:4318/v1/traces;
-    #       }
+          location = /otlp/v1/traces {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:4318/v1/traces;
+          }
 
-    #       location ^~ /api {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "query-frontend") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
-    #       }
+          location ^~ /api {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "query-frontend") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
+          }
 
-    #       location = /flush {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "ingester") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
-    #       }
+          location = /flush {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "ingester") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
+          }
 
-    #       location = /shutdown {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "ingester") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
-    #       }
+          location = /shutdown {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "ingester") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
+          }
 
-    #       location = /distributor/ring {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
-    #       }
+          location = /distributor/ring {
+            set $distributor {{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }};
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
+          }
 
-    #       location = /ingester/ring {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
-    #       }
+          location = /ingester/ring {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "distributor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
+          }
 
-    #       location = /compactor/ring {
-    #         proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "compactor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
-    #       }
+          location = /compactor/ring {
+            proxy_pass       http://{{ include "tempo.resourceName" (dict "ctx" . "component" "compactor") }}.{{ .Release.Namespace }}.svc.{{ .Values.global.clusterDomain }}:3100$request_uri;
+          }
 
-    #       {{- with .Values.gateway.nginxConfig.serverSnippet }}
-    #       {{ . | nindent 4 }}
-    #       {{- end }}
-    #     }
-    #   }
+          {{- with .Values.gateway.nginxConfig.serverSnippet }}
+          {{ . | nindent 4 }}
+          {{- end }}
+        }
+      }
 ##############################################################################
 # The values in and after the `enterprise:` key configure the enterprise features
 enterprise:
