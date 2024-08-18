@@ -8,6 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - otel-demo.pinnamon.com  # Replace with your actual domain
+    secretName: otel-demo-ca-tls
   rules:
   - host: otel-demo.pinnamon.com
     http:
