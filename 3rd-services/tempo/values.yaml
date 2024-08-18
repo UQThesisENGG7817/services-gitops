@@ -1527,6 +1527,7 @@ minio:
 gateway:
   # -- Specifies whether the gateway should be enabled
   enabled: true
+  enabledNonEnterprise: true
   # -- Number of replicas for the gateway
   replicas: 1
   # -- hostAliases to add
@@ -1549,17 +1550,6 @@ gateway:
     targetMemoryUtilizationPercentage:
   # -- Enable logging of 2xx and 3xx HTTP requests
   verboseLogging: true
-  image:
-    # -- The Docker registry for the gateway image. Overrides `global.image.registry`
-    registry: null
-    # -- Optional list of imagePullSecrets. Overrides `global.image.pullSecrets`
-    pullSecrets: []
-    # -- The gateway image repository
-    repository: nginxinc/nginx-unprivileged
-    # -- The gateway image tag
-    tag: 1.19-alpine
-    # -- The gateway image pull policy
-    pullPolicy: IfNotPresent
   # -- The name of the PriorityClass for gateway pods
   priorityClassName: null
   # -- Labels for gateway pods
