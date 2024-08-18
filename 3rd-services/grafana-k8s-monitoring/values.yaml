@@ -405,7 +405,7 @@ alloy-logs:
   controller:
     priorityClassName: system-node-critical
   logging:
-    level: debug
+    level: info
     format: logfmt
 
   liveDebugging:
