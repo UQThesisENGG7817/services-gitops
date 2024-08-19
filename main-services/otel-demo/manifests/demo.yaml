@@ -33,6 +33,12 @@ spec:
             value: otlp
           - name: OTEL_METRICS_EXPORTER
             value: otlp
+          - name: OTEL_EXPORTER_OTLP_PROTOCOL
+            value: grpc
+          - name: OTEL_EXPORTER_OTLP_INSECURE
+            value: true
+          - name: OTEL_LOG_LEVEL
+            value: debug
           - name: GRPC_VERBOSITY
             value: debug
           - name: GRPC_TRACE
