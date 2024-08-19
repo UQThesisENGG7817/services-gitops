@@ -33,6 +33,10 @@ spec:
             value: otlp
           - name: OTEL_METRICS_EXPORTER
             value: otlp
+          - name: GRPC_VERBOSITY
+            value: debug
+          - name: GRPC_TRACE
+            value: http,call_error,connectivity_state
         ports:
         - containerPort: 8082
   strategy:
