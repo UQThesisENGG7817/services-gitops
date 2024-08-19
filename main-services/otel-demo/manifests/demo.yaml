@@ -21,7 +21,7 @@ spec:
         magnum.openstack.org/role: worker
       containers:
       - name: otel-demo
-        image: ghcr.io/php1301/otel-demo:v1.0.0
+        image: ghcr.io/php1301/otel-demo:v1.0.1
         command: ["opentelemetry-instrument"]
         args: ["flask", "run", "--host", "0.0.0.0", "--port", "8082", "--debug"]
         env:

@@ -1,35 +1,39 @@
-from flask import Flask
-from random import randint
+from flask import Flask, request
 
-from opentelemetry import trace, metrics
-import logging
-
-# Initialize tracer globally
-tracer = trace.get_tracer_provider().get_tracer(__name__)
-
-# Initialize metrics globally
-meter = metrics.get_meter_provider().get_meter(__name__)
-request_counter = meter.create_counter(name="request_counter", description="Number of requests", unit="1")
+from opentelemetry.instrumentation.wsgi import collect_request_attributes
+from opentelemetry.propagate import extract
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import (
+    BatchSpanProcessor,
+    ConsoleSpanExporter,
+)
+from opentelemetry.trace import (
+    SpanKind,
+    get_tracer_provider,
+    set_tracer_provider,
+)
 
 app = Flask(__name__)
 
-@app.route("/rolldice")
-def roll_dice():
-    return str(do_roll())
+set_tracer_provider(TracerProvider())
+tracer = get_tracer_provider().get_tracer(__name__)
 
-def do_roll():
-    res = randint(1, 6)
+get_tracer_provider().add_span_processor(
+    BatchSpanProcessor(ConsoleSpanExporter())
+)
 
-    with tracer.start_as_current_span("do_roll"):
-        current_span = trace.get_current_span()
-        current_span.set_attribute("roll.value", res)
-        current_span.add_event("This is a span event")
 
-        logging.getLogger().error("Derp! Brisbane, we have a major problem.")
-        
-        request_counter.add(1)
+@app.route("/server_request")
+def server_request():
+    with tracer.start_as_current_span(
+        "server_request",
+        context=extract(request.headers),
+        kind=SpanKind.SERVER,
+        attributes=collect_request_attributes(request.environ),
+    ):
+        print(request.args.get("param"))
+        return "served"
 
-    return res
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8082, debug=True, use_reloader=False)
+    app.run(port=8082, debug=True, use_reloader=False)
