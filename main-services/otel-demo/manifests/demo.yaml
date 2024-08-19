@@ -23,7 +23,7 @@ spec:
       - name: otel-demo
         image: ghcr.io/php1301/otel-demo:v1.0.2
         command: ["opentelemetry-instrument"]
-        args: ["flask", "run", "--host", "0.0.0.0", "--port", "8082", "--debug"]
+        args: ["flask", "run", "--port", "8082", "--debug"]
         env:
           - name: OTEL_RESOURCE_ATTRIBUTES
             value: service.name=py-otel-server,service.version=0.1.0
@@ -36,7 +36,7 @@ spec:
           - name: GRPC_VERBOSITY
             value: debug
           - name: GRPC_TRACE
-            value: all
+            value: http,call_error,connectivity_state,api
         ports:
         - containerPort: 8082
   strategy:
