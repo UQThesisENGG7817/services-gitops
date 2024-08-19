@@ -17,7 +17,7 @@ resources:
   ### Observability Stack
   - ../external-secrets
   - ../nginx
-  - ../longhorn
+  # - ../longhorn
   - ../minio
   - ../cert-manager
   - ../netshoot
