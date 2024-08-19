@@ -28,7 +28,7 @@ externalServices:
 
   # Connection information for Grafana Tempo
   tempo:
-    host: http://tempo-distributed-gateway.observability.svc.cluster.local
+    host: https://tempo.pinnamon.com
     protocol: "otlphttp"
     searchEndpoint: /api/search
     tenantId: shared
