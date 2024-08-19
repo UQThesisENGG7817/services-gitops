@@ -179,13 +179,13 @@ traces:
         - attributes["http.route"] == "/live"
         - attributes["http.route"] == "/healthy"
         - attributes["http.route"] == "/ready"
-    transforms:
-      resource:
-        - limit(attributes, 100, [])
-        - truncate_all(attributes, 4096)
-      span:
-        - limit(attributes, 100, [])
-        - truncate_all(attributes, 4096)
+    # transforms:
+    #   resource:
+    #     - limit(attributes, 100, [])
+    #     - truncate_all(attributes, 4096)
+    #   span:
+    #     - limit(attributes, 100, [])
+    #     - truncate_all(attributes, 4096)
 # Settings related to capturing and forwarding profiles
 profiles:
   enabled: false
