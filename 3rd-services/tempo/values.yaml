@@ -1681,11 +1681,7 @@ gateway:
     # -- Labels for gateway service
     labels: {}
     # -- Additional ports to be opneed on gateway service (e.g. for RPC connections)
-    additionalPorts:
-    - port:
-      number: 9090
-      name: grpc-gateway
-      protocol: GRPC
+    additionalPorts: []
   # Gateway ingress configuration
   ingress:
     enabled: true
