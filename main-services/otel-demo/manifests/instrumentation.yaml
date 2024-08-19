@@ -13,7 +13,7 @@ spec:
   python:
     env:
       - name: OTEL_METRICS_EXPORTER
-        value: otlp_proto_http
+        value: otlp
       - name: OTEL_LOGS_EXPORTER
         value: otlp_proto_http
       - name: OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED
