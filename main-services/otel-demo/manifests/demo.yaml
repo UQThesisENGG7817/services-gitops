@@ -23,7 +23,7 @@ spec:
       - name: otel-demo
         image: ghcr.io/php1301/otel-demo:v1.0.3
         command: ["opentelemetry-instrument"]
-        args: ["--traces_exporter", "otlp", "flask", "run", "--host", "0.0.0.0", "--port", "8082", "--debug"]
+        args: ["python", "app.py", "--port", "8082", "--debug"]
         env:
           - name: OTEL_RESOURCE_ATTRIBUTES
             value: service.name=py-otel-server,service.version=0.1.0
