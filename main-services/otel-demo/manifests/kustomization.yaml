@@ -5,4 +5,4 @@ resources:
   - demo.yaml
   - ingress.yaml
   - service.yaml
-  - instrumentation.yaml
+  # - instrumentation.yaml

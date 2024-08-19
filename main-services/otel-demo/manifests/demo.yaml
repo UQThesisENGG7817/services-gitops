@@ -27,6 +27,8 @@ spec:
         env:
           - name: OTEL_RESOURCE_ATTRIBUTES
             value: service.name=py-otel-server,service.version=0.1.0
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: https://tempo.pinnamon.com
         ports:
         - containerPort: 8082
   strategy:
