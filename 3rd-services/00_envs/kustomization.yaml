@@ -22,7 +22,7 @@ resources:
   - ../cert-manager
   - ../netshoot
   - ../reloader
-  - ../cluster-autoscaler
+  # - ../cluster-autoscaler
   ### base - overlays
   - ../vault/overlays/production
 
