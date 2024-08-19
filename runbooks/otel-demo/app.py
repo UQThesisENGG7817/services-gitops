@@ -1,11 +1,14 @@
 from flask import Flask
 from random import randint
+from opentelemetry.sdk.trace import TracerProvider
 
 from opentelemetry import trace, metrics
 import logging
 
 # Initialize tracer globally
-tracer = trace.get_tracer_provider().get_tracer(__name__)
+provider = TracerProvider()
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
 
 # Initialize metrics globally
 meter = metrics.get_meter_provider().get_meter(__name__)
