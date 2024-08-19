@@ -158,6 +158,8 @@ alertmanager:
       memory: 32Mi
     limits:
       memory: 64Mi
+  persistentVolume:
+    storageClass: default
   nodeSelector:
     magnum.openstack.org/role: worker
 compactor:
@@ -167,6 +169,8 @@ compactor:
       memory: 512Mi
     limits:
       memory: 1Gi
+  persistentVolume:
+    storageClass: default
   nodeSelector:
     magnum.openstack.org/role: worker
 ####################
