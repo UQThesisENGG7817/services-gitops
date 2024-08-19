@@ -29,6 +29,10 @@ spec:
             value: service.name=py-otel-server,service.version=0.1.0
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: http://grafana-k8s-monitoring-alloy-cluster.observability.svc.cluster.local:4317
+          - name: OTEL_TRACES_EXPORTER
+            value: otlp
+          - name: OTEL_METRICS_EXPORTER
+            value: otlp
         ports:
         - containerPort: 8082
   strategy:
