@@ -16,4 +16,4 @@ resources:
   - otel-demo-certificate.yaml
   - vault-certificate.yaml
   - minio-certificate.yaml
-  - longhorn-certificate.yaml
+  # - longhorn-certificate.yaml
