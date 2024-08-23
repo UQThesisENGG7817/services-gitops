@@ -30,6 +30,7 @@ spec:
           namespaces:
           - observability
           - trivy-system
+          - kyverno
     validate:
       message: Containers may not define CPU limits.
       pattern:

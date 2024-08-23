@@ -19,4 +19,4 @@ patches:
     patch: |-
       - op: add
         path: /spec/sources/0/targetRevision
-        value: "0.8.0"
+        value: "0.8.1"

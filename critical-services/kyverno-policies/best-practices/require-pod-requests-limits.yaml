@@ -33,6 +33,7 @@ spec:
           namespaces:
           - observability
           - trivy-system
+          - kyverno
     validate:
       message: "CPU and memory resource requests and limits are required."
       pattern:
