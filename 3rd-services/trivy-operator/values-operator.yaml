@@ -13,6 +13,8 @@ trivy-operator:
   nodeCollector:
     # -- tolerations to be applied to the node-collector so that they can run on nodes with matching taints
     tolerations: []
+    nodeSelector:
+      magnum.openstack.org/role: worker
 
   nodeSelector:
     magnum.openstack.org/role: worker
