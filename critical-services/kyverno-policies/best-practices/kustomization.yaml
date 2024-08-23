@@ -4,7 +4,7 @@ resources:
 - disallow-default-namespace.yaml
 - disallow-latest-tag.yaml
 - forbid-cpu-limits.yaml
-- imagepullpolicy-always-tag-latest.yaml
+# - imagepullpolicy-always-tag-latest.yaml
 - limit-containers-per-pod.yaml
 - pdb-maxunavailable.yaml
 - pdb-minavailable.yaml
@@ -12,7 +12,7 @@ resources:
 - require-deployments-replicas.yaml
 - require-drop-all-capabilities.yaml
 - require-labels.yaml
-- require-pdb.yaml
+# - require-pdb.yaml
 - require-pod-requests-limits.yaml
 - require-probes.yaml
 # - restrict-image-registries.yaml

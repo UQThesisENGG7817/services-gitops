@@ -209,7 +209,7 @@ policy-reporter:
       # Discord app webhook address
       webhook: "https://discord.com/api/webhooks/1236237645466570792/0IctGB5a2piFyefENG2tAXyqPLXU7L-TFZoHwOB5qbeqiOy6Z_ncpTISy-V6EVTfspQ3"
       # minimum priority "" < info < warning < critical < error
-      minimumPriority: "critical"
+      minimumPriority: "info"
       # Skip already existing PolicyReportResults on startup
       skipExistingOnStartup: true
   nodeSelector:

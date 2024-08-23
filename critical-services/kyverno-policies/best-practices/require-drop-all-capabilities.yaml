@@ -26,6 +26,11 @@ spec:
               - Pod
             namespaces:
             - "*"
+      exclude:
+      any:
+      - resources:
+          namespaces:
+          - observability
       preconditions:
         all:
         - key: "{{ request.operation || 'BACKGROUND' }}"

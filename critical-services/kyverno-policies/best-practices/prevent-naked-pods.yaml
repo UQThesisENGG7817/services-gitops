@@ -26,11 +26,11 @@ spec:
       - resources:
           kinds:
           - Pod
-    # exclude:
-    #   any:
-    #   - resources:
-    #       namespaces:
-    #       - gha-runner
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - observability
     preconditions:
       all:
       - key: "{{request.operation || 'BACKGROUND'}}"
