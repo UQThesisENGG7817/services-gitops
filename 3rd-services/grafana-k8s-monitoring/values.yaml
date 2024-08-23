@@ -238,7 +238,6 @@ receivers:
     enabled: true
 
 # -- Extra configuration that will be added to the Grafana Alloy configuration file.
-extraConfig: |
   # discovery.relabel "node_exporter" {
   #   targets = discovery.kubernetes.nodes.targets
   #   rule {
@@ -276,7 +275,7 @@ extraConfig: |
   #     target_label  = "role"
   #   }
   # }
-
+extraConfig: |
   prometheus.scrape "node_exporter" {
     job_name = "integrations/node_exporter"
     targets = discovery.relabel.node_exporter.output
