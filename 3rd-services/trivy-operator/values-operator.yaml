@@ -10,5 +10,13 @@ trivy-operator:
       magnum.openstack.org/role: worker
 
   # -- nodeSelector set the operator nodeSelector
+  nodeCollector:
+    # -- tolerations to be applied to the node-collector so that they can run on nodes with matching taints
+    tolerations:
+      - key: "magnum.openstack.org/role"
+        operator: "Equal"
+        value: "worker"
+        effect: "NoSchedule"
+
   nodeSelector:
-    magnum.openstack.org/role: worker
+    agnum.openstack.ormg/role: worker
