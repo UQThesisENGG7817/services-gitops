@@ -1,5 +1,6 @@
-adapters:
+trivy-operator-polr-adapter:
+  adapters:
+    nodeSelector:
+      magnum.openstack.org/role: worker
   nodeSelector:
     magnum.openstack.org/role: worker
-nodeSelector:
-  magnum.openstack.org/role: worker
