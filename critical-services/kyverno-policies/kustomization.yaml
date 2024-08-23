@@ -26,7 +26,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/validationFailureAction
-        value: Enforce
+        value: Audit
   - target:
       kind: ClusterPolicy
       name: imagepullpolicy-always
@@ -40,7 +40,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/validationFailureAction
-        value: Enforce
+        value: Audit
   - target:
       kind: ClusterPolicy
       name: pdb-maxunavailable
@@ -54,7 +54,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/validationFailureAction
-        value: Enforce
+        value: Audit
   - target:
       kind: ClusterPolicy
       name: drop-all-capabilities
@@ -75,21 +75,21 @@ patches:
     patch: |-
       - op: replace
         path: /spec/validationFailureAction
-        value: Enforce
+        value: Audit
   - target:
       kind: ClusterPolicy
       name: require-requests-limits
     patch: |-
       - op: replace
         path: /spec/validationFailureAction
-        value: Enforce
+        value: Audit
   - target:
       kind: ClusterPolicy
       name: require-pod-probes
     patch: |-
       - op: replace
         path: /spec/validationFailureAction
-        value: Enforce
+        value: Audit
   - target:
       kind: ClusterPolicy
       name: restrict-storageclass
