@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - release-operator.yaml
+  - release-polr-adapter.yaml
+
+patches:
+  - target:
+      kind: Application
+      name: trivy-operator-release
+    patch: |-
+      - op: add
+        path: /spec/sources/0/targetRevision
+        value: "0.23.3"
+  - target:
+      kind: Application
+      name: trivy-operator-polr-adapter-release
+    patch: |-
+      - op: add
+        path: /spec/sources/0/targetRevision
+        value: "0.8.0"

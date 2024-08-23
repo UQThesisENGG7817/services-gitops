@@ -1,0 +1,14 @@
+trivy-operator:
+  # -- targetNamespace defines where you want trivy-operator to operate. By
+  # default, it's a blank string to select all namespaces, but you can specify
+  # another namespace, or a comma separated list of namespaces.
+  targetNamespaces: ""
+
+  trivyOperator:
+    # -- scanJobNodeSelector nodeSelector to be applied to the scanner pods so that they can run on nodes with matching labels
+    scanJobNodeSelector:
+      magnum.openstack.org/role: worker
+
+  # -- nodeSelector set the operator nodeSelector
+  nodeSelector:
+    magnum.openstack.org/role: worker
