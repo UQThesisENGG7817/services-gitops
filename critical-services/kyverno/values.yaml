@@ -1,0 +1,249 @@
+# Configuration
+config:
+  # -- Defines the `namespaceSelector` in the webhook configurations.
+  # Note that it takes a list of `namespaceSelector` and/or `objectSelector` in the JSON format, and only the first element
+  # will be forwarded to the webhook configurations.
+  # The Kyverno namespace is excluded if `excludeKyvernoNamespace` is `true` (default)
+  webhooks:
+    # Exclude namespaces
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values:
+            - kube-system
+            - kube-node-lease
+            - kyverno
+    # Exclude objects
+    # - objectSelector:
+    #     matchExpressions:
+    #     - key: webhooks.kyverno.io/exclude
+    #       operator: DoesNotExist
+
+webhooksCleanup:
+  # -- Node labels for pod assignment
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  tolerations:
+    - key: nodegroup-role
+      operator: Equal
+      value: critical-addons
+      effect: NoSchedule
+
+# Features configuration
+features:
+  admissionReports:
+    # -- Enables the feature
+    enabled: true
+  aggregateReports:
+    # -- Enables the feature
+    enabled: true
+  policyReports:
+    # -- Enables the feature
+    enabled: true
+  validatingAdmissionPolicyReports:
+    # -- Enables the feature
+    enabled: false
+  autoUpdateWebhooks:
+    # -- Enables the feature
+    enabled: true
+  backgroundScan:
+    # -- Enables the feature
+    enabled: true
+    # -- Number of background scan workers
+    backgroundScanWorkers: 2
+    # -- Background scan interval
+    backgroundScanInterval: 1h
+    # -- Skips resource filters in background scan
+    skipResourceFilters: true
+  configMapCaching:
+    # -- Enables the feature
+    enabled: true
+  deferredLoading:
+    # -- Enables the feature
+    enabled: true
+  dumpPayload:
+    # -- Enables the feature
+    enabled: false
+  forceFailurePolicyIgnore:
+    # -- Enables the feature
+    enabled: false
+  generateValidatingAdmissionPolicy:
+    # -- Enables the feature
+    enabled: false
+  logging:
+    # -- Logging format
+    format: text
+    # -- Logging verbosity
+    verbosity: 2
+  omitEvents:
+    # -- Events which should not be emitted (possible values `PolicyViolation`, `PolicyApplied`, `PolicyError`, and `PolicySkipped`)
+    eventTypes: []
+      # - PolicyViolation
+      # - PolicyApplied
+      # - PolicyError
+      # - PolicySkipped
+  policyExceptions:
+    # -- Enables the feature
+    enabled: false
+    # -- Restrict policy exceptions to a single namespace
+    namespace: ''
+  protectManagedResources:
+    # -- Enables the feature
+    enabled: false
+  registryClient:
+    # -- Allow insecure registry
+    allowInsecure: false
+    # -- Enable registry client helpers
+    credentialHelpers:
+    - default
+    - google
+    - amazon
+    - azure
+    - github
+  reports:
+    # -- Reports chunk size
+    chunkSize: 1000
+
+# Cleanup cronjobs to prevent internal resources from stacking up in the cluster
+cleanupJobs:
+  admissionReports:
+    # -- Node labels for pod assignment
+    nodeSelector:
+      magnum.openstack.org/role: worker
+    tolerations:
+      - key: nodegroup-role
+        operator: Equal
+        value: critical-addons
+        effect: NoSchedule
+  clusterAdmissionReports:
+    # -- Node labels for pod assignment
+    nodeSelector:
+      magnum.openstack.org/role: worker
+    tolerations:
+      - key: nodegroup-role
+        operator: Equal
+        value: critical-addons
+        effect: NoSchedule
+
+# Admission controller configuration
+admissionController:
+  container:
+    resources:
+      # -- Pod resource limits
+      limits:
+        memory: 1Gi
+      # -- Pod resource requests
+      requests:
+        cpu: 100m
+        memory: 300Mi
+  # -- Node labels for pod assignment
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  tolerations:
+    - key: nodegroup-role
+      operator: Equal
+      value: critical-addons
+      effect: NoSchedule
+  serviceMonitor:
+    # -- Create a `ServiceMonitor` to collect Prometheus metrics.
+    enabled: true
+    # -- (string) Override namespace
+    namespace: observability
+    metricRelabelings:
+      - action: drop
+        regex: kyverno_policy_execution_duration_seconds_bucket
+        sourceLabels:
+        - __name__
+      - action: drop
+        regex: kyverno_admission_review_duration_seconds_bucket
+        sourceLabels:
+        - __name__
+
+# Background controller configuration
+backgroundController:
+  resources:
+    # -- Pod resource limits
+    limits:
+      memory: 128Mi
+    # -- Pod resource requests
+    requests:
+      cpu: 10m
+      memory: 64Mi
+  # -- Node labels for pod assignment
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  tolerations:
+    - key: nodegroup-role
+      operator: Equal
+      value: critical-addons
+      effect: NoSchedule
+  serviceMonitor:
+    # -- Create a `ServiceMonitor` to collect Prometheus metrics.
+    enabled: false # Temporary disabled
+    # -- (string) Override namespace
+    namespace: observability
+    metricRelabelings:
+      - action: drop
+        regex: kyverno_policy_execution_duration_seconds_bucket
+        sourceLabels:
+        - __name__
+
+# Cleanup controller configuration
+cleanupController:
+  resources:
+    # -- Pod resource limits
+    limits:
+      memory: 128Mi
+    # -- Pod resource requests
+    requests:
+      cpu: 10m
+      memory: 64Mi
+  # -- Node labels for pod assignment
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  tolerations:
+    - key: nodegroup-role
+      operator: Equal
+      value: critical-addons
+      effect: NoSchedule
+  serviceMonitor:
+    # -- Create a `ServiceMonitor` to collect Prometheus metrics.
+    enabled: false # Temporary disabled
+    # -- (string) Override namespace
+    namespace: observability
+    metricRelabelings:
+      - action: drop
+        regex: kyverno_policy_execution_duration_seconds_bucket
+        sourceLabels:
+        - __name__
+
+# Reports controller configuration
+reportsController:
+  resources:
+    # -- Pod resource limits
+    limits:
+      memory: 256Mi
+    # -- Pod resource requests
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  # -- Node labels for pod assignment
+  nodeSelector:
+    magnum.openstack.org/role: worker
+  tolerations:
+    - key: nodegroup-role
+      operator: Equal
+      value: critical-addons
+      effect: NoSchedule
+  serviceMonitor:
+    # -- Create a `ServiceMonitor` to collect Prometheus metrics.
+    enabled: true
+    # -- (string) Override namespace
+    namespace: observability
+    # -- RelabelConfigs to apply to samples before scraping
+    metricRelabelings:
+      - action: drop
+        regex: kyverno_policy_execution_duration_seconds_bucket
+        sourceLabels:
+        - __name__
