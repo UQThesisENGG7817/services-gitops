@@ -12,9 +12,10 @@ trivy-operator:
   # -- nodeSelector set the operator nodeSelector
   nodeCollector:
     # -- tolerations to be applied to the node-collector so that they can run on nodes with matching taints
-    tolerations: []
-    nodeSelector:
-      magnum.openstack.org/role: worker
+    tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"
 
   nodeSelector:
     magnum.openstack.org/role: worker
