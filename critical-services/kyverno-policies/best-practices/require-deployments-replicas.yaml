@@ -25,6 +25,12 @@ spec:
             - Deployment
             namespaces:
             - "*"
+      exclude:
+        any:
+        - resources:
+            namespaces:
+            - observability
+            - trivy-system
       validate:
         message: "Deployments should have more than one replica to ensure availability."
         pattern:
