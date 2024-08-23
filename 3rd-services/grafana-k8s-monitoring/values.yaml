@@ -239,43 +239,43 @@ receivers:
 
 # -- Extra configuration that will be added to the Grafana Alloy configuration file.
 extraConfig: |
-  discovery.relabel "node_exporter" {
-    targets = discovery.kubernetes.nodes.targets
-    rule {
-      source_labels = ["__address__"]
-      regex         = "([^:]+):.*"
-      target_label  = "__address__"
-      replacement   = "$1:9100"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_name"]
-      target_label  = "name"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_arch"]
-      target_label  = "arch"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_instance_type"]
-      target_label  = "instance_type"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_label_kubernetes_io_os"]
-      target_label  = "os"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_region"]
-      target_label  = "region"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_zone"]
-      target_label  = "zone"
-    }
-    rule {
-      source_labels = ["__meta_kubernetes_node_label_nodegroup_role"]
-      target_label  = "role"
-    }
-  }
+  # discovery.relabel "node_exporter" {
+  #   targets = discovery.kubernetes.nodes.targets
+  #   rule {
+  #     source_labels = ["__address__"]
+  #     regex         = "([^:]+):.*"
+  #     target_label  = "__address__"
+  #     replacement   = "$1:9100"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_name"]
+  #     target_label  = "name"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_arch"]
+  #     target_label  = "arch"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_label_beta_kubernetes_io_instance_type"]
+  #     target_label  = "instance_type"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_label_kubernetes_io_os"]
+  #     target_label  = "os"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_region"]
+  #     target_label  = "region"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_label_topology_kubernetes_io_zone"]
+  #     target_label  = "zone"
+  #   }
+  #   rule {
+  #     source_labels = ["__meta_kubernetes_node_label_nodegroup_role"]
+  #     target_label  = "role"
+  #   }
+  # }
 
   prometheus.scrape "node_exporter" {
     job_name = "integrations/node_exporter"
