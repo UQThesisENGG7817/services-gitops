@@ -14,7 +14,7 @@ resources:
   - ../tempo
   - ../mimir
   - ../grafana-k8s-monitoring
-  ### Observability Stack
+  # Miscellaneuous
   - ../external-secrets
   - ../nginx
   # - ../longhorn
@@ -22,6 +22,9 @@ resources:
   - ../cert-manager
   - ../netshoot
   - ../reloader
+  # Security
+  - ../policy-reporter
+  - ../trivy-operator
   # - ../cluster-autoscaler
   ### base - overlays
   - ../vault/overlays/production

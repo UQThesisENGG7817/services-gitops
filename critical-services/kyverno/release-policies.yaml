@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno-policies-release
+  namespace: argo
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: kyverno-policies
+spec:
+  project: critical-services
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kyverno
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+  ignoreDifferences: []
+  source:
+    repoURL: https://github.com/UQThesisENGG7817/services-gitops
+    targetRevision: main
+    path: ""

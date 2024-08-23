@@ -1,0 +1,116 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - best-practices
+  # - others # Currently we dont need others
+
+patches:
+  - target:
+      kind: ClusterPolicy
+      name: disallow-default-namespace
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: disallow-latest-tag
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: forbid-cpu-limits
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: imagepullpolicy-always
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: limit-containers-per-pod
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: pdb-maxunavailable
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: prevent-naked-pods
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: drop-all-capabilities
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: require-labels
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: require-pdb
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: require-requests-limits
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: require-pod-probes
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  - target:
+      kind: ClusterPolicy
+      name: restrict-storageclass
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Enforce
+  # These policies are not enabled in the sandbox environment
+  # Because we set the replicas of most of the deployments to 1
+  # For cost-saving
+  - target:
+      kind: ClusterPolicy
+      name: pdb-minavailable-check
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Audit
+  - target:
+      kind: ClusterPolicy
+      name: deployment-has-multiple-replicas
+    patch: |-
+      - op: replace
+        path: /spec/validationFailureAction
+        value: Audit

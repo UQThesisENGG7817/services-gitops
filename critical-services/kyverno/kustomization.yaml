@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - release.yaml
+  - release-policies.yaml
+
+patches:
+  - target:
+      kind: Application
+      name: kyverno-release
+    patch: |-
+      - op: add
+        path: /spec/sources/0/helm/valueFiles/-
+        value: $values/critical-services/kyverno/values.yaml
+  - target:
+      kind: Application
+      name: kyverno-policies-release
+    patch: |-
+      - op: add
+        path: /spec/source/path
+        value: critical-services/kyverno-policies
