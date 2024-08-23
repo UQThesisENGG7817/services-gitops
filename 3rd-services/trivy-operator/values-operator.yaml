@@ -19,4 +19,4 @@ trivy-operator:
         effect: "NoSchedule"
 
   nodeSelector:
-    agnum.openstack.ormg/role: worker
+    magnum.openstack.org/role: worker
