@@ -28,6 +28,12 @@ spec:
           - Pod
           namespaces:
           - "*"
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - observability
+          - trivy-system
     preconditions:
       all:
       - key: "{{request.operation || 'BACKGROUND'}}"

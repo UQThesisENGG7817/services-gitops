@@ -24,11 +24,12 @@ spec:
           - Pod
           # namespaces:
           # - "*-services"
-    # exclude:
-    #   any:
-    #   - resources:
-    #       namespaces:
-    #       - gha-runner
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - observability
+          - trivy-system
     validate:
       message: Containers may not define CPU limits.
       pattern:

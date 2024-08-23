@@ -27,6 +27,12 @@ spec:
           - Pod
           namespaces:
           - "*"
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - observability
+          - trivy-system
     validate:
       message: "CPU and memory resource requests and limits are required."
       pattern:

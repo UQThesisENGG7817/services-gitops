@@ -27,10 +27,10 @@ spec:
             namespaces:
             - "*"
       exclude:
-      any:
-      - resources:
-          namespaces:
-          - observability
+        any:
+        - resources:
+            namespaces:
+            - observability
       preconditions:
         all:
         - key: "{{ request.operation || 'BACKGROUND' }}"
