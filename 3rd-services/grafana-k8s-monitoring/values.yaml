@@ -71,14 +71,48 @@ metrics:
 
   kube-state-metrics:
     enabled: true
+    metricsTuning:
+      includeMetrics:
+        - kube_pod_container_status_last_terminated_exitcode
 
   node-exporter:
-    enabled: false # Disable due to custom Alloy pipeline in `extraConfig`
+    enabled: true
+    metricsTuning:
+      useDefaultAllowList: true
+      useIntegrationAllowList: true
+      includeMetrics:
+        - node_time_seconds
+        - node_disk_io_now
+        - node_netstat_Tcp_CurrEstab
+        - node_procs_blocked
+        - node_forks_total
+        - process_virtual_memory_bytes
+        - node_schedstat_running_seconds_total
+        - node_schedstat_waiting_seconds_total
+        - node_network_receive_frame_total
+        - node_network_transmit_carrier_total
+        - node_network_transmit_colls_total
+        - node_netstat_TcpExt_SyncookiesFailed
+        - node_netstat_TcpExt_SyncookiesRecv
+        - node_netstat_TcpExt_SyncookiesSent
+        - node_netstat_Tcp_ActiveOpens
+        - node_netstat_Tcp_PassiveOpens
+        - node_scrape_collector_duration_seconds
 
   kubelet:
     enabled: true
+    metricsTuning:
+      includeMetrics:
+        - kubelet_volume_stats_used_bytes
 
   cadvisor:
+    enabled: true
+    metricsTuning:
+      includeMetrics:
+        - machine_cpu_cores
+        - container_oom_events_total
+        - container_network_receive_errors_total
+        - container_network_transmit_errors_total
     enabled: true
 
   apiserver:
