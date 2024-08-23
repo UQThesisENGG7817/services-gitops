@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: critical-services
+  namespace: argo
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: bootstrap
+  source:
+    path: "critical-services/00_envs"
+    repoURL: https://github.com/UQThesisENGG7817/services-gitops
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true

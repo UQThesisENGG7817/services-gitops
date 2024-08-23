@@ -1,0 +1,12 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: customCommonLabels
+labels:
+  env: prod
+  cluster: potter-uq-thesis
+  server-url: cd.pinnamon.com
+fieldSpecs:
+- kind: Application
+  path: metadata/labels
+  create: true
