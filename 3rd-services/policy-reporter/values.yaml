@@ -1,0 +1,216 @@
+policy-reporter:
+  replicaCount: 1
+
+  resources:
+    limits:
+      memory: 100Mi
+    requests:
+      memory: 75Mi
+      cpu: 5m
+
+  # REST API
+  rest:
+    enabled: true
+
+  # Prometheus Metrics API
+  metrics:
+    enabled: true
+
+  profiling:
+    enabled: true
+
+  # enable policy-report-ui
+  ui:
+    enabled: true
+
+    replicaCount: 1
+
+    plugins:
+      kyverno: true
+
+    resources:
+      limits:
+        memory: 100Mi
+      requests:
+        memory: 50Mi
+        cpu: 10m
+
+    ingress:
+      enabled: true
+      className: "nginx"
+      path: /
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      hosts:
+        - host: policy-reporter.pinnamon.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+      - hosts:
+        - policy-reporter.pinnamon.com
+        secretName: policy-reporter-ca-tls
+
+    nodeSelector:
+      magnum.openstack.org/role: worker
+
+  kyvernoPlugin:
+    enabled: true
+
+    replicaCount: 1
+
+    resources:
+      limits:
+        memory: 50Mi
+      requests:
+        memory: 20Mi
+        cpu: 5m
+
+    nodeSelector:
+      magnum.openstack.org/role: worker
+
+    # REST API
+    rest:
+      enabled: true
+
+    # Prometheus Metrics API
+    metrics:
+      enabled: true
+
+    # create PolicyReports for enforce policies,
+    # based on Events created by Kyverno (>= v1.7.0)
+    blockReports:
+      enabled: true
+      eventNamespace: kyverno
+      results:
+        maxPerReport: 200
+        keepOnlyLatest: false
+
+  # Settings for the monitoring subchart
+  monitoring:
+    enabled: true
+
+    plugins:
+      kyverno: true
+
+    serviceMonitor:
+      # allow to override the namespace for serviceMonitor
+      namespace: observability
+      # optional namespaceSelector
+      namespaceSelector:
+        matchNames:
+          - kyverno
+
+    kyverno:
+      serviceMonitor:
+        # allow to override the namespace for serviceMonitor
+        namespace: observability
+        # optional namespaceSelector
+        namespaceSelector:
+          matchNames:
+            - kyverno
+
+    grafana:
+      dashboards:
+        # Enable the deployment of grafana dashboards
+        enabled: false
+
+  global:
+    # available plugins
+    plugins:
+      # enable kyverno for Policy Reporter UI and monitoring
+      kyverno: true
+    # The name of service policy-report. Defaults to ReleaseName.
+    backend: ""
+    # overwrite the fullname of all resources including subcharts
+    fullnameOverride: ""
+    # configure the namespace of all resources including subcharts
+    namespace: ""
+    # additional labels added on each resource
+    labels: {}
+    # basicAuth for APIs and metrics
+    basicAuth:
+      # HTTP BasicAuth username
+      username: ""
+      # HTTP BasicAuth password
+      password: ""
+      # read credentials from secret
+      secretRef: ""
+
+  emailReports:
+    clusterName: "potter_gha_2"
+    titlePrefix: "Report" # title prefix in the email subject
+    smtp:
+      secret: "" # (optional) secret name to provide the complete or partial SMTP configuration
+      host: ""
+      port: 465
+      username: ""
+      password: ""
+      from: "" # displayed from email address
+      encryption: "" # default is none, supports ssl/tls and starttls
+
+    # basic summary report
+    summary:
+      enabled: false
+      schedule: "0 8 * * *" # CronJob schedule defines when the report will be send
+      activeDeadlineSeconds: 300 # timeout in seconds
+      backoffLimit: 3 # retry counter
+      ttlSecondsAfterFinished: 0
+      restartPolicy: Never # pod restart policy
+
+      to: [] # list of receiver email addresses
+      filter: {} # optional filters
+      #  disableClusterReports: false # remove ClusterPolicyResults from Reports
+      #  namespaces:
+      #    include: []
+      #    exclude: []
+      #  sources:
+      #    include: []
+      #    exclude: []
+      channels: [] # (optional) channels can be used to to send only a subset of namespaces / sources to dedicated email addresses    channels: [] # (optional) channels can be used to to send only a subset of namespaces / sources to dedicated email addresses
+      #  - to: ['team-a@company.org']
+      #    filter:
+      #      disableClusterReports: true
+      #      namespaces:
+      #        include: ['team-a-*']
+      #      sources:
+      #        include: ['Kyverno']
+    # violation summary report
+    violations:
+      enabled: false
+      schedule: "0 8 * * *" # CronJob schedule defines when the report will be send
+      activeDeadlineSeconds: 300 # timeout in seconds
+      backoffLimit: 3 # retry counter
+      ttlSecondsAfterFinished: 0
+      restartPolicy: Never # pod restart policy
+
+      to: [] # list of receiver email addresses
+      filter: {} # optional filters
+      #  disableClusterReports: false # remove ClusterPolicyResults from Reports
+      #  namespaces:
+      #    include: []
+      #    exclude: []
+      #  sources:
+      #    include: []
+      #    exclude: []
+      channels: [] # (optional) channels can be used to to send only a subset of namespaces / sources to dedicated email addresses    channels: [] # (optional) channels can be used to to send only a subset of namespaces / sources to dedicated email addresses
+      #  - to: ['team-a@company.org']
+      #    filter:
+      #      disableClusterReports: true
+      #      namespaces:
+      #        include: ['team-a-*']
+      #      sources:
+      #        include: ['Kyverno']
+
+  # Supported targets for new PolicyReport Results
+  target:
+    discord:
+      # Discord app webhook address
+      webhook: "https://discord.com/api/webhooks/1236237645466570792/0IctGB5a2piFyefENG2tAXyqPLXU7L-TFZoHwOB5qbeqiOy6Z_ncpTISy-V6EVTfspQ3"
+      # minimum priority "" < info < warning < critical < error
+      minimumPriority: "critical"
+      # Skip already existing PolicyReportResults on startup
+      skipExistingOnStartup: true
+  nodeSelector:
+    magnum.openstack.org/role: worker
