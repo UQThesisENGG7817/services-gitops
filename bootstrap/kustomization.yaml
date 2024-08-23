@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - main-services.yaml
   - 3rd-services.yaml
+  - critical-services.yaml
 
 
 ## If we have any patches
