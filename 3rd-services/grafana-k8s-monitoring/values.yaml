@@ -145,7 +145,7 @@ metrics:
 
   serviceMonitors:
     enabled: true
-    namespaces: ["argo"]
+    namespaces: []
     selector: ""
 
   kubernetesMonitoring:
