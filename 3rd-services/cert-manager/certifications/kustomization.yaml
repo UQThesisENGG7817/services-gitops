@@ -13,6 +13,7 @@ resources:
   - loki-certificate.yaml
   - alloy-certificate.yaml
   # - git-webhook-certificate.yaml
+  - policy-reporter-certificate.yaml
   - otel-demo-certificate.yaml
   - vault-certificate.yaml
   - minio-certificate.yaml
