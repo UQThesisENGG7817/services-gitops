@@ -31,6 +31,7 @@ spec:
         - resources:
             namespaces:
             - observability
+            - gha-runner
       preconditions:
         all:
         - key: "{{ request.operation || 'BACKGROUND' }}"

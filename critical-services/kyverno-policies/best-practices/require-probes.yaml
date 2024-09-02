@@ -35,6 +35,7 @@ spec:
           - observability
           - trivy-system
           - kyverno
+          - gha-runner
     preconditions:
       all:
       - key: "{{request.operation || 'BACKGROUND'}}"
