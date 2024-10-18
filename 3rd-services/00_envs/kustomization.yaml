@@ -8,7 +8,7 @@ resources:
   ### Observability Stack
   - ../metrics-server
   - ../kube-prometheus-stack
-  - ../robusta
+  # - ../robusta
   - ../loki
   - ../grafana
   - ../tempo

@@ -1,15 +1,15 @@
 # sinks configurations
-# sinksConfig:
-#   - robusta_sink:
-#       name: robusta_ui_sink
-#       token: "{{ env.ROBUSTA_UI_SINK_API_KEY }}"
-#   - discord_sink:
-#       name: discord_sink
-#       url: "{{ env.DISCORD_SINK }}"
-#   - telegram_sink:
-#       name: pinnamon_alerts
-#       bot_token: "{{ env.TELEGRAM_TOKEN }}"
-#       chat_id: "{{ env.CHAT_ID }}"
+sinksConfig:
+  - robusta_sink:
+      name: robusta_ui_sink
+      token: "{{ env.ROBUSTA_UI_SINK_API_KEY }}"
+  - discord_sink:
+      name: discord_sink
+      url: "{{ env.DISCORD_SINK }}"
+  - telegram_sink:
+      name: pinnamon_alerts
+      bot_token: "{{ env.TELEGRAM_TOKEN }}"
+      chat_id: "{{ env.CHAT_ID }}"
 
 clusterName: "potter_gha_2"
 # see https://docs.robusta.dev/master/user-guide/configuration.html#global-config and https://docs.robusta.dev/master/configuration/additional-settings.html#global-config
